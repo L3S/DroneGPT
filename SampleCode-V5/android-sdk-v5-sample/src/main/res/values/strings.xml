@@ -467,4 +467,15 @@ More refer to the release notes." </string>
     <string name="title_select_yuv_format">Select Image Format</string>
     <string name="title_select_yuv_format_ok">OK</string>
     <string name="title_select_yuv_format_cancel">Cancel</string>
+    <string name="btn_land">Land</string>
+    <string name="btn_move_forward">Move Forward</string>
+    <string name="btn_move_backward">Move Backward</string>
+    <string name="btn_move_right">Move Right</string>
+    <string name="btn_move_left">Move Left</string>
+    <string name="btn_get_heading">Get Heading</string>
+    <string name="btn_take_photo">Take Photo</string>
+    <string name="btn_rotate_right">Rotate Right</string>
+    <string name="btn_rotate_left">Rotate Left</string>
+    <string name="btn_initialize_virtual_sticks">Init Virtual Sticks</string>
+    <string name="btn_initialize_all">Init All</string>
 </resources>

@@ -1,0 +1,228 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white">
+
+    <androidx.core.widget.NestedScrollView
+        android:id="@+id/stick_button_list"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:background="@color/white"
+        android:orientation="vertical"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintHorizontal_bias="0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0"
+        app:layout_constraintWidth_percent="0.15">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@color/white"
+            android:orientation="vertical">
+            <Button
+                android:id="@+id/btn_initialize_virtual_sticks"
+                style="@style/main_fragment_btn"
+                android:text="@string/btn_initialize_virtual_sticks"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <Button
+                android:id="@+id/btn_initialize_all"
+                style="@style/main_fragment_btn"
+                android:text="@string/btn_initialize_all"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/btn_initialize_virtual_sticks" />
+
+            <Button
+                android:id="@+id/btn_take_off"
+                style="@style/main_fragment_btn"
+                android:text="@string/btn_take_off"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/btn_initialize_all" />
+
+            <Button
+                android:id="@+id/btn_land"
+                style="@style/main_fragment_btn"
+                android:text="@string/btn_land"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/btn_take_off" />
+
+            <Button
+                android:id="@+id/btn_move_forward"
+                style="@style/main_fragment_btn"
+                android:text="@string/btn_move_forward"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/btn_land" />
+
+            <Button
+                android:id="@+id/btn_move_backward"
+                style="@style/main_fragment_btn"
+                android:text="@string/btn_move_backward"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/btn_move_forward" />
+
+            <Button
+                android:id="@+id/btn_move_right"
+                style="@style/main_fragment_btn"
+                android:text="@string/btn_move_right"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/btn_move_backward" />
+
+            <Button
+                android:id="@+id/btn_move_left"
+                style="@style/main_fragment_btn"
+                android:text="@string/btn_move_left"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/btn_move_right" />
+
+            <Button
+                android:id="@+id/btn_rotate_right"
+                style="@style/main_fragment_btn"
+                android:text="@string/btn_rotate_right"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/btn_move_left" />
+
+            <Button
+                android:id="@+id/btn_rotate_left"
+                style="@style/main_fragment_btn"
+                android:text="@string/btn_rotate_left"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/btn_rotate_right" />
+
+            <Button
+                android:id="@+id/btn_get_heading"
+                style="@style/main_fragment_btn"
+                android:text="@string/btn_get_heading"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/btn_rotate_left" />
+
+            <Button
+                android:id="@+id/btn_take_photo"
+                style="@style/main_fragment_btn"
+                android:text="@string/btn_take_photo"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/btn_get_heading" />
+
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.core.widget.NestedScrollView>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_height="match_parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/stick_button_list"
+        android:layout_width="0dp"
+        app:layout_constraintWidth_percent="0.85">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/parameters"
+            android:layout_height="wrap_content"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintBottom_toTopOf="@id/updates_scroll_view"
+            android:layout_width="0dp"
+            app:layout_constraintWidth_percent="0.85">
+            <RadioGroup
+                android:id="@+id/radio_group"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent">
+
+                <RadioButton
+                    android:id="@+id/radio_java"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Java Execution"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <RadioButton
+                    android:id="@+id/radio_luaj"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="LuaJ Execution"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/radio_java" />
+            </RadioGroup>
+            <Switch
+                android:id="@+id/obstacle_avoidance_switch"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toEndOf="@id/radio_group"
+                app:layout_constraintEnd_toStartOf="@id/takeoff_altitude"/>
+            <EditText
+                android:id="@+id/takeoff_altitude"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toEndOf="@id/obstacle_avoidance_switch"
+                app:layout_constraintEnd_toStartOf="@id/max_altitude"
+                android:inputType="number"
+                android:text="10"
+                android:hint="Takeoff height"/>
+            <EditText
+                android:id="@+id/max_altitude"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toEndOf="@id/takeoff_altitude"
+                app:layout_constraintEnd_toStartOf="@id/max_distance"
+                android:inputType="number"
+                android:text="20"
+                android:hint="max altitude [20,1500]"/>
+            <EditText
+                android:id="@+id/max_distance"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toEndOf="@id/max_altitude"
+                app:layout_constraintEnd_toEndOf="parent"
+                android:inputType="number"
+                android:text="15"
+                android:hint="max distance [15,8000]"/>
+        </androidx.constraintlayout.widget.ConstraintLayout>
+        <androidx.core.widget.NestedScrollView
+            android:id="@+id/updates_scroll_view"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/white"
+            android:orientation="vertical"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/parameters">
+            <TextView
+                android:id="@+id/test_flight_updates"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text=""
+                android:textColor="@color/black"
+                android:textSize="12sp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent">
+            </TextView>
+        </androidx.core.widget.NestedScrollView>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

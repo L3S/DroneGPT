@@ -11,11 +11,11 @@ import android.view.View
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
+import com.l3s.dronegpt.TestFlightActivity
 import dji.sampleV5.aircraft.models.BaseMainActivityVm
 import dji.sampleV5.aircraft.models.MSDKInfoVm
 import dji.sampleV5.aircraft.models.MSDKManagerVM
 import dji.sampleV5.aircraft.models.globalViewModels
-import dji.sampleV5.aircraft.util.Helper
 import dji.sampleV5.aircraft.util.ToastUtils
 import dji.v5.utils.common.LogUtils
 import dji.v5.utils.common.PermissionUtil
@@ -116,20 +116,30 @@ abstract class DJIMainActivity : AppCompatActivity() {
             text_core_info.text = it.coreInfo.toString()
         }
 
-        icon_sdk_forum.setOnClickListener {
-            Helper.startBrowser(this, StringUtils.getResStr(R.string.sdk_forum_url))
-        }
-        icon_release_node.setOnClickListener {
-            Helper.startBrowser(this, StringUtils.getResStr(R.string.release_node_url))
-        }
-        icon_tech_support.setOnClickListener {
-            Helper.startBrowser(this, StringUtils.getResStr(R.string.tech_support_url))
-        }
+//        icon_sdk_forum.setOnClickListener {
+//            Helper.startBrowser(this, StringUtils.getResStr(R.string.sdk_forum_url))
+////            thread {
+////                ChatGPTService.executeScript()
+////            }
+//        }
+//        icon_release_node.setOnClickListener {
+//            Helper.startBrowser(this, StringUtils.getResStr(R.string.release_node_url))
+//        }
+//        icon_tech_support.setOnClickListener {
+//            Helper.startBrowser(this, StringUtils.getResStr(R.string.tech_support_url))
+//        }
         view_base_info.setOnClickListener {
             baseMainActivityVm.doPairing {
                 showToast(it)
             }
         }
+
+        panel_icon_msg.setOnClickListener {
+            val intent = Intent(this@DJIMainActivity, TestFlightActivity::class.java)
+            startActivity(intent)
+        }
+
+
     }
 
     private fun observeSDKManager() {
@@ -183,6 +193,10 @@ abstract class DJIMainActivity : AppCompatActivity() {
     fun <T> enableTestingTools(cl: Class<T>) {
         enableShowCaseButton(testing_tool_button, cl)
     }
+//
+//    fun <T> enableTestFlightTools(cl: Class<T>) {
+//        enableShowCaseButton(panel_icon_msg, cl)
+//    }
 
     private fun <T> enableShowCaseButton(view: View, cl: Class<T>) {
         view.isEnabled = true

@@ -126,4 +126,5 @@ dependencies {
     implementation deps.dom
     kapt deps.glidecompiler
 
+    implementation 'org.luaj:luaj-jse:3.0.1'
 }

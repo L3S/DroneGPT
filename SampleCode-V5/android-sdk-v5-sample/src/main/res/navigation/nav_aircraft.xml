@@ -18,6 +18,12 @@
         tools:layout="@layout/frag_virtual_stick_page" />
 
     <fragment
+        android:id="@+id/simple_testing_page"
+        android:name="com.l3s.dronegpt.pages.SimpleTestingFragment"
+        android:label="simple_testing_page"
+        tools:layout="@layout/frag_simple_testing_page" />
+
+    <fragment
         android:id="@+id/flight_record_page"
         android:name="dji.sampleV5.aircraft.pages.FlightRecordFragment"
         android:label="flight_record_page"
