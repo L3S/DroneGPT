@@ -478,4 +478,14 @@ More refer to the release notes." </string>
     <string name="btn_rotate_left">Rotate Left</string>
     <string name="btn_initialize_virtual_sticks">Init Virtual Sticks</string>
     <string name="btn_initialize_all">Init All</string>
+
+    <string-array name="gpt_models_array">
+        <item>ChatGPT 3.5</item>
+        <item>ChatGPT 4</item>
+    </string-array>
+    <string-array name="area_types_array">
+        <item>Select an area shape</item>
+        <item>Rectangle</item>
+        <item>Circle</item>
+    </string-array>
 </resources>

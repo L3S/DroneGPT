@@ -87,4 +87,9 @@
     <color name="mission_edit_panel_container_bg">#FF111610</color>
     <color name="white_alpha_016">#29FFFFFF</color>
 
+
+    <color name="ETContainerColor">#3F3F3F</color>
+    <color name="ETVbackgroundColor">#535353</color>
+    <color name="UserbackgroundColor">#FFD384</color>
+
 </resources>

@@ -1,16 +1,16 @@
 package com.l3s.dronegpt.data.repository
 
+import android.app.Application
+import com.l3s.dronegpt.data.database.AppDatabase
 import com.l3s.dronegpt.data.database.Image
-import com.l3s.dronegpt.data.database.ImageDao
-import javax.inject.Inject
+import dji.sampleV5.aircraft.DJIApplication
 
-interface ImageRepository {
-    fun getImagesByExperimentId(experimentId: Int)
-    suspend fun add(image: Image)
-}
+class ImageRepository(application: Application) {
+    private val database: AppDatabase = (application as DJIApplication).droneGptDatabase
 
-class DefaultImageRepository @Inject constructor(
-    private val imageDao: ImageDao
-) : ImageRepository {
+    fun getAllImages() = database.imageDao().getAllImages()
 
+    fun getImagesByExperimentId(experimentId: Int) = database.imageDao().getImagesByExperimentId(experimentId)
+
+    fun insert(image: Image) = database.imageDao().insertImage(image)
 }

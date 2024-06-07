@@ -7,31 +7,49 @@ import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.PrimaryKey
 import androidx.room.Query
-import com.l3s.dronegpt.model.ExperimentParameters
 
+//TODO: add FlightUtility logs?
 @Entity(tableName = "experiments")
 data class Experiment(
+    val openaiModel: String,
+    val areaDescription: String,
+    val flightHeight: Int
 
-    val parameters: ExperimentParameters,
-    val executedCode: String,
-    val logIndex: Int
 ) {
     @PrimaryKey(autoGenerate = true)
-    val id: Int = 0
+    var id: Int = 0
+    var executedCode: String = ""
+    var flightLogs: String = ""
+//    var flightRecordPath: String = ""
+//    var flightCompactLogsPath: String = ""
 }
 
 @Dao
 interface ExperimentDao {
 
     @Query("SELECT * FROM experiments")
-    fun getExperiments(): List<Experiment>
+    fun getAllExperiments(): LiveData<List<Experiment>>
+    @Query("SELECT * FROM experiments")
+    abstract fun getAllExperimentsSync(): List<Experiment>
 
     @Query("SELECT * FROM experiments WHERE id = :experimentId")
-    fun getExperimentById(experimentId: Int): LiveData<Experiment>
+    fun getExperimentById(experimentId: Int): Experiment
 
     @Insert(onConflict = OnConflictStrategy.IGNORE)
     fun insertExperiment(experiment: Experiment)
 
     @Query("DELETE FROM experiments WHERE id = :experimentId")
-    fun deleteExperiment(experimentId: Int)
+    fun deleteExperiment(experimentId: Int): Int
+
+    @Query("UPDATE experiments SET executedCode = :executedCode WHERE id = :experimentId")
+    fun setExecutedCode(experimentId: Int, executedCode: String): Int
+
+    @Query("UPDATE experiments SET flightLogs = :flightLogs WHERE id = :experimentId")
+    fun setFlightLogs(experimentId: Int, flightLogs: String): Int
+
+//    @Query("UPDATE experiments SET flightRecordPath = :flightRecordPath WHERE id = :experimentId")
+//    fun setFlightRecordPath(experimentId: Int, flightRecordPath: String): Int
+//
+//    @Query("UPDATE experiments SET flightCompactLogsPath = :flightCompactLogsPath WHERE id = :experimentId")
+//    fun setFlightCompactLogsPath(experimentId: Int, flightCompactLogsPath: String): Int
 }

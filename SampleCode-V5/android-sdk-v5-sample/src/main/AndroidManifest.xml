@@ -85,11 +85,16 @@
             android:screenOrientation="landscape"
             android:configChanges="orientation|screenSize|keyboardHidden"
             android:exported="false"/>
-        <activity android:name="com.l3s.dronegpt.TestFlightActivity"
+        <activity android:name="com.l3s.dronegpt.ui.DroneGPTActivity"
             android:theme="@style/full_screen_theme"
             android:screenOrientation="landscape"
             android:configChanges="orientation|screenSize|keyboardHidden"
             android:exported="false"/>
+        <activity android:name="com.l3s.dronegpt.ui.ExperimentFormActivity"
+            android:theme="@style/full_screen_theme"
+            android:screenOrientation="landscape"
+            android:configChanges="orientation|screenSize|keyboardHidden"
+            android:exported="false" />
     </application>
 
 </manifest>

@@ -11,7 +11,7 @@ import android.view.View
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
-import com.l3s.dronegpt.TestFlightActivity
+import com.l3s.dronegpt.ui.DroneGPTActivity
 import dji.sampleV5.aircraft.models.BaseMainActivityVm
 import dji.sampleV5.aircraft.models.MSDKInfoVm
 import dji.sampleV5.aircraft.models.MSDKManagerVM
@@ -135,7 +135,7 @@ abstract class DJIMainActivity : AppCompatActivity() {
         }
 
         panel_icon_msg.setOnClickListener {
-            val intent = Intent(this@DJIMainActivity, TestFlightActivity::class.java)
+            val intent = Intent(this@DJIMainActivity, DroneGPTActivity::class.java)
             startActivity(intent)
         }
 
