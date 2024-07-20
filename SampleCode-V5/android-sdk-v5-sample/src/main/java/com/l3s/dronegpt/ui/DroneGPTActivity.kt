@@ -2,6 +2,7 @@ package com.l3s.dronegpt.ui
 
 //import kotlinx.android.synthetic.main.dronegpt_main.test_flight_updates
 import ExperimentAdapter
+import android.app.AlertDialog
 import android.content.Intent
 import android.os.Build
 import android.os.Bundle
@@ -9,6 +10,7 @@ import android.os.Handler
 import android.os.Looper
 import android.util.Log
 import android.view.View
+import android.widget.EditText
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -24,19 +26,14 @@ import kotlinx.android.synthetic.main.dronegpt_main.btn_create_all_experiments
 import kotlinx.android.synthetic.main.dronegpt_main.btn_create_experiment
 import kotlinx.android.synthetic.main.dronegpt_main.btn_disable_virtual_stick
 import kotlinx.android.synthetic.main.dronegpt_main.btn_enable_virtual_sticks
-import kotlinx.android.synthetic.main.dronegpt_main.btn_execute_script
 import kotlinx.android.synthetic.main.dronegpt_main.btn_experiment_height
 import kotlinx.android.synthetic.main.dronegpt_main.btn_export_data
+import kotlinx.android.synthetic.main.dronegpt_main.btn_get_coordinates
 import kotlinx.android.synthetic.main.dronegpt_main.btn_get_heading
 import kotlinx.android.synthetic.main.dronegpt_main.btn_initialize_all
 import kotlinx.android.synthetic.main.dronegpt_main.btn_land
-import kotlinx.android.synthetic.main.dronegpt_main.btn_move_backward
-import kotlinx.android.synthetic.main.dronegpt_main.btn_move_forward
-import kotlinx.android.synthetic.main.dronegpt_main.btn_move_left
-import kotlinx.android.synthetic.main.dronegpt_main.btn_move_right
+import kotlinx.android.synthetic.main.dronegpt_main.btn_max_distance
 import kotlinx.android.synthetic.main.dronegpt_main.btn_return_home
-import kotlinx.android.synthetic.main.dronegpt_main.btn_rotate_left
-import kotlinx.android.synthetic.main.dronegpt_main.btn_rotate_right
 import kotlinx.android.synthetic.main.dronegpt_main.btn_save_logcat
 import kotlinx.android.synthetic.main.dronegpt_main.btn_take_off
 import kotlinx.android.synthetic.main.dronegpt_main.btn_take_photo
@@ -186,12 +183,48 @@ class DroneGPTActivity : AppCompatActivity(), ScriptErrorListener {
             FlightUtility.elevateToExperimentHeight()
         }
 
+        btn_max_distance.setOnClickListener {
+            val dialogView = layoutInflater.inflate(R.layout.dronegpt_max_distance_dialog, null)
+            val numberInput = dialogView.findViewById<EditText>(R.id.numberInput)
+
+            AlertDialog.Builder(this)
+                .setView(dialogView)
+                .setPositiveButton("Save") { dialog, _ ->
+                    val number = numberInput.text.toString().toInt()
+                    FlightUtility.setDistanceLimit(number)
+                    dialog.dismiss()
+                }
+                .setNegativeButton("Cancel") { dialog, _ ->
+                    dialog.cancel()
+                }
+                .create()
+                .show()
+        }
+
         btn_create_experiment.setOnClickListener {
             val intent = Intent(this, ExperimentFormActivity::class.java)
             startActivity(intent)
         }
+
+
+
         btn_create_all_experiments.setOnClickListener {
-            //TODO: implement
+            viewModel.createExperimentsPreset()
+
+
+            //using this for testing:
+//            val results = FloatArray(1)
+//            Location.distanceBetween(52.47051956676109, 13.414233865845508,52.46976142133504, 13.412055912131855, results)
+//            addUpdate("Distance test 1 expected value = 171m. actual value = ${results[0]}")
+//
+//            Location.distanceBetween(52.47051956676109, 13.414233865845508,52.47051956676109, 13.412055912131855, results)
+//            addUpdate("X Distance test 1 expected value = 150m. actual value = ${results[0]}")
+//
+//            Location.distanceBetween(52.47051956676109, 13.414233865845508,52.46976142133504, 13.414233865845508, results)
+//            addUpdate("Y Distance test 1 expected value = 82m. actual value = ${results[0]}")
+
+
+
         }
         btn_save_logcat.setOnClickListener {
             try {
@@ -213,44 +246,50 @@ class DroneGPTActivity : AppCompatActivity(), ScriptErrorListener {
 //        btn_land.setOnClickListener {
 //            ScriptManager.executeLuaScript("end_flight()")
 //        }
-        btn_move_forward.setOnClickListener {
-            ScriptManager.executeLuaScript("adjust_flight_parameters(0.0, 23.0,0.0)")
-        }
-        btn_move_backward.setOnClickListener {
-            ScriptManager.executeLuaScript("adjust_flight_parameters(0.0, -23.0,0.0)")
-        }
-        btn_move_right.setOnClickListener {
-            ScriptManager.executeLuaScript("adjust_flight_parameters(23.0, 0.0,0.0)")
-        }
-        btn_move_left.setOnClickListener {
-            ScriptManager.executeLuaScript("adjust_flight_parameters(-23.0, 0.0,0.0)")
-        }
-        btn_rotate_left.setOnClickListener {
-            ScriptManager.executeLuaScript("adjust_flight_parameters(0.0, 0.0, -50.0)")
-        }
-        btn_rotate_right.setOnClickListener {
-            ScriptManager.executeLuaScript("adjust_flight_parameters(0.0, 0.0, 50.0)")
-        }
+//        btn_move_forward.setOnClickListener {
+//            ScriptManager.executeLuaScript("adjust_flight_parameters(0.0, 23.0,0.0)")
+//        }
+//        btn_move_backward.setOnClickListener {
+//            ScriptManager.executeLuaScript("adjust_flight_parameters(0.0, -23.0,0.0)")
+//        }
+//        btn_move_right.setOnClickListener {
+//            ScriptManager.executeLuaScript("adjust_flight_parameters(23.0, 0.0,0.0)")
+//        }
+//        btn_move_left.setOnClickListener {
+//            ScriptManager.executeLuaScript("adjust_flight_parameters(-23.0, 0.0,0.0)")
+//        }
+//        btn_rotate_left.setOnClickListener {
+//            ScriptManager.executeLuaScript("adjust_flight_parameters(0.0, 0.0, -50.0)")
+//        }
+//        btn_rotate_right.setOnClickListener {
+//            ScriptManager.executeLuaScript("adjust_flight_parameters(0.0, 0.0, 50.0)")
+//        }
         btn_get_heading.setOnClickListener {
             ScriptManager.executeLuaScript("print(get_compass_heading())")
         }
         btn_take_photo.setOnClickListener {
             ScriptManager.executeLuaScript("take_photo()")
         }
-        btn_execute_script.setOnClickListener {try {
-            ScriptManager.executeLuaScript("""
-                adjust_flight_parameters(0.0, 10,0.0)
-                pause_script_execution(0.30)
-                adjust_flight_parameters(0.0, -10.0,0.0)
-                pause_script_execution(10)
-                take_photo()
-                adjust_flight_parameters(0.0, 0.0, -50.0)
-                pause_script_execution(10)
-                adjust_flight_parameters(0.0, 0.0, 50.0)
-            """)
-            } catch (e: Exception) {
-                addUpdate("Error executing script: ${e.localizedMessage}")
-            }
+        btn_get_coordinates.setOnClickListener {
+            addUpdate("Distance to home: ${FlightUtility.getDistanceToHome()}")
+            addUpdate("Current Coordinates: X = ${FlightUtility.getCurrentXCoordinate()}, Y = ${FlightUtility.getCurrentYCoordinate()}")
+
+            //TESTS
+//            //home = 52.46879977407918, 13.404097181321797
+//            // Test 1 = 52.469248247489695, 13.40481913685554 expected x=50, y=50
+//            addUpdate("Test 1: x=${FlightUtility.testGetXCoordinate(52.46879977407918, 13.404097181321797, 13.40481913685554)}, y=${FlightUtility.testGetYCoordinate(52.46879977407918, 13.404097181321797, 52.469248247489695)}")
+//            // Test 2 = 52.46925232181403, 13.404096818508132 expected x=0., y=50
+//            addUpdate("Test 2: x=${FlightUtility.testGetXCoordinate(52.46879977407918, 13.404097181321797, 13.404096818508132)}, y=${FlightUtility.testGetYCoordinate(52.46879977407918, 13.404097181321797, 52.46925232181403)}")
+//            // Test 3 = 52.46924621032878, 13.402608708947184 expected x=-100, y=50
+//            addUpdate("Test 3: x=${FlightUtility.testGetXCoordinate(52.46879977407918, 13.404097181321797, 13.402608708947184)}, y=${FlightUtility.testGetYCoordinate(52.46879977407918, 13.404097181321797, 52.46924621032878)}")
+//            // Test 4 = 52.46878377203923, 13.403060157914435 expected x=-70, y=0
+//            addUpdate("Test 4: x=${FlightUtility.testGetXCoordinate(52.46879977407918, 13.404097181321797, 13.403060157914435)}, y=${FlightUtility.testGetYCoordinate(52.46879977407918, 13.404097181321797, 52.46878377203923)}")
+//            // Test 5 = 52.46842318903735, 13.403060157914435 expected x=-70, y=-40
+//            addUpdate("Test 5: x=${FlightUtility.testGetXCoordinate(52.46879977407918, 13.404097181321797, 13.403060157914435)}, y=${FlightUtility.testGetYCoordinate(52.46879977407918, 13.404097181321797, 52.46842318903735)}")
+//            // Test 6 = 52.46807362325268, 13.404091860095912 expected x=0, y=-80
+//            addUpdate("Test 6: x=${FlightUtility.testGetXCoordinate(52.46879977407918, 13.404097181321797, 13.404091860095912)}, y=${FlightUtility.testGetYCoordinate(52.46879977407918, 13.404097181321797, 52.46807362325268)}")
+//            // Test 7 = 52.46807362324435, 13.405869887428333 expected x=120, y=-80
+//            addUpdate("Test 7: x=${FlightUtility.testGetXCoordinate(52.46879977407918, 13.404097181321797, 13.405869887428333 )}, y=${FlightUtility.testGetYCoordinate(52.46879977407918, 13.404097181321797, 52.46807362324435)}")
         }
     }
 

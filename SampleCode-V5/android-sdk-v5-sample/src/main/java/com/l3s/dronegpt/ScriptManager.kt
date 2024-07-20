@@ -23,9 +23,10 @@ object ScriptManager {
 //        globals.set("take_off", FlightLib.TakeOff())
         globals.set("end_flight", FlightLib.EndFlight())
         globals.set("take_photo", FlightLib.TakePhoto())
-        globals.set("get_latitude", FlightLib.GetLatitude())
-        globals.set("get_longitude", FlightLib.GetLongitude())
-        globals.set("get_altitude", FlightLib.GetAltitude())
+        globals.set("get_distance_to_origin", FlightLib.GetDistanceToOrigin())
+        globals.set("get_x_coordinate", FlightLib.GetXCoordinate())
+        globals.set("get_y_coordinate", FlightLib.GetYCoordinate())
+//        globals.set("get_altitude", FlightLib.GetAltitude())
         globals.set("get_compass_heading", FlightLib.GetCompassHeading())
         globals.set("adjust_flight_parameters", FlightLib.AdjustFlightParameters())
 

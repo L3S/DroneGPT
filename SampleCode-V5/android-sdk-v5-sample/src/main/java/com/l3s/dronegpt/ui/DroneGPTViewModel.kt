@@ -53,6 +53,10 @@ class DroneGPTViewModel(application: Application) : AndroidViewModel(application
         experimentRepository.insertGPT4Experiment(areaDescription, flightHeight)
     }
 
+    fun createExperimentsPreset() = viewModelScope.launch(Dispatchers.IO) {
+        experimentRepository.insertExperimentsPreset()
+    }
+
     fun setExperimentExecutedCode(experimentId: Int, executedCode: String) = viewModelScope.launch(Dispatchers.IO) {
         experimentRepository.setExecutedCode(experimentId, executedCode)
     }

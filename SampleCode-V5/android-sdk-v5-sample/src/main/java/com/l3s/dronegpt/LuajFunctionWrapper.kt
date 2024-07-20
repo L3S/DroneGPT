@@ -29,23 +29,30 @@ class FlightLib {
         }
     }
 
-    class GetLatitude : ZeroArgFunction() {
+    class GetDistanceToOrigin : ZeroArgFunction() {
         override fun call(): LuaValue {
-            return LuaValue.valueOf(FlightUtility.getLatitude())
+            return LuaValue.valueOf(FlightUtility.getDistanceToHome())
         }
     }
 
-    class GetLongitude : ZeroArgFunction() {
+    class GetXCoordinate : ZeroArgFunction() {
         override fun call(): LuaValue {
-            return LuaValue.valueOf(FlightUtility.getLongitude())
+            return LuaValue.valueOf(FlightUtility.getCurrentXCoordinate())
         }
     }
 
-    class GetAltitude : ZeroArgFunction() {
+    class GetYCoordinate : ZeroArgFunction() {
         override fun call(): LuaValue {
-            return LuaValue.valueOf(FlightUtility.getAltitude())
+            return LuaValue.valueOf(FlightUtility.getCurrentYCoordinate())
         }
     }
+
+    //DEPRECATED
+//    class GetAltitude : ZeroArgFunction() {
+//        override fun call(): LuaValue {
+//            return LuaValue.valueOf(FlightUtility.getAltitude())
+//        }
+//    }
 
     class GetCompassHeading : ZeroArgFunction() {
         override fun call(): LuaValue {

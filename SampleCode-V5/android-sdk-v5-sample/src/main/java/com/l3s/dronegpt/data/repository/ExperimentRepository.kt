@@ -23,6 +23,14 @@ class ExperimentsRepository(application: Application) {
             Experiment(ChatGPTUtility.gpt4Model, areaDescription, flightHeight)
         )
 
+    fun insertExperimentsPreset() {
+        for (experiment in ChatGPTUtility.experimentsPreset) {
+            database.experimentDao().insertExperiment(
+                experiment
+            )
+        }
+    }
+
     fun setExecutedCode(id: Int, code: String) = database.experimentDao().setExecutedCode(id, code)
 
     fun setFlightLogs(id: Int, flightLogs: String) = database.experimentDao().setFlightLogs(id, flightLogs)

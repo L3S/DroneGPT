@@ -5,226 +5,156 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/white">
-
-    <androidx.core.widget.NestedScrollView
-        android:id="@+id/stick_button_list"
-        android:layout_width="0dp"
+    <LinearLayout
+        android:id="@+id/top_bar"
+        android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:background="@color/white"
-        android:orientation="vertical"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintHorizontal_bias="0"
-        app:layout_constraintStart_toStartOf="parent"
+        android:orientation="horizontal"
+        android:background="@color/dark_gray"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0"
-        app:layout_constraintWidth_percent="0.15">
-
-        <androidx.constraintlayout.widget.ConstraintLayout
+        app:layout_constraintHeight_percent="0.05">
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:background="@color/white"
-            android:orientation="vertical">
-            <Button
-                android:id="@+id/btn_enable_virtual_sticks"
-                style="@style/main_fragment_btn"
-                android:text="Enable VirtualStick"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
+            android:gravity="center_horizontal"
+            android:orientation="horizontal">
+    <!--        dji.v5.ux.core.widget.gpssignal-->
+    <!--        <dji.v5.ux.widget.GPSSignalWidget-->
+            <!--        device health and status-->
+            <dji.v5.ux.core.widget.remotecontrollersignal.RemoteControllerSignalWidget
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"/>
+            <dji.v5.ux.core.widget.gpssignal.GpsSignalWidget
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"/>
 
-            <Button
-                android:id="@+id/btn_initialize_all"
-                style="@style/main_fragment_btn"
-                android:text="@string/btn_initialize_all"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/btn_enable_virtual_sticks" />
+            <dji.v5.ux.core.widget.altitude.AGLAltitudeWidget
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"/>
+            <dji.v5.ux.core.widget.distancehome.DistanceHomeWidget
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"/>
+            <dji.v5.ux.core.widget.horizontalvelocity.HorizontalVelocityWidget
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"/>
 
-            <Button
-                android:id="@+id/btn_take_off"
-                style="@style/main_fragment_btn"
-                android:text="@string/btn_take_off"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/btn_initialize_all" />
+            <dji.v5.ux.core.widget.battery.BatteryCellView
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"/>
+            <dji.v5.ux.core.widget.remainingflighttime.RemainingFlightTimeWidget
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"/>
+            <dji.v5.ux.warning.DeviceHealthAndStatusWidget
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"/>
 
-            <Button
-                android:id="@+id/btn_land"
-                style="@style/main_fragment_btn"
-                android:text="@string/btn_land"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/btn_take_off" />
-
-            <Button
-                android:id="@+id/btn_return_home"
-                style="@style/main_fragment_btn"
-                android:text="return home"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/btn_land" />
-
-            <Button
-                android:id="@+id/btn_move_forward"
-                style="@style/main_fragment_btn"
-                android:text="@string/btn_move_forward"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/btn_return_home" />
-
-            <Button
-                android:id="@+id/btn_move_backward"
-                style="@style/main_fragment_btn"
-                android:text="@string/btn_move_backward"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/btn_move_forward" />
-
-            <Button
-                android:id="@+id/btn_move_right"
-                style="@style/main_fragment_btn"
-                android:text="@string/btn_move_right"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/btn_move_backward" />
-
-            <Button
-                android:id="@+id/btn_move_left"
-                style="@style/main_fragment_btn"
-                android:text="@string/btn_move_left"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/btn_move_right" />
-
-            <Button
-                android:id="@+id/btn_rotate_right"
-                style="@style/main_fragment_btn"
-                android:text="@string/btn_rotate_right"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/btn_move_left" />
-
-            <Button
-                android:id="@+id/btn_rotate_left"
-                style="@style/main_fragment_btn"
-                android:text="@string/btn_rotate_left"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/btn_rotate_right" />
-
-            <Button
-                android:id="@+id/btn_get_heading"
-                style="@style/main_fragment_btn"
-                android:text="@string/btn_get_heading"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/btn_rotate_left" />
-
-            <Button
-                android:id="@+id/btn_take_photo"
-                style="@style/main_fragment_btn"
-                android:text="@string/btn_take_photo"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/btn_get_heading" />
-
-
-            <Button
-                android:id="@+id/btn_execute_script"
-                style="@style/main_fragment_btn"
-                android:text="execute script"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/btn_take_photo" />
-
-
-            <Button
-                android:id="@+id/btn_export_data"
-                style="@style/main_fragment_btn"
-                android:text="export data"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/btn_execute_script" />
-
-            <Button
-                android:id="@+id/btn_save_logcat"
-                style="@style/main_fragment_btn"
-                android:text="save logcat"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/btn_export_data" />
-
-            <Button
-                android:id="@+id/btn_create_experiment"
-                style="@style/main_fragment_btn"
-                android:text="create experiment"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/btn_save_logcat" />
-
-            <Button
-                android:id="@+id/btn_create_all_experiments"
-                style="@style/main_fragment_btn"
-                android:text="create experiments preset"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/btn_create_experiment" />
-
-<!--            <Button-->
-<!--                android:id="@+id/btn_select_experiment"-->
-<!--                style="@style/main_fragment_btn"-->
-<!--                android:text="select experiment"-->
-<!--                app:layout_constraintEnd_toEndOf="parent"-->
-<!--                app:layout_constraintStart_toStartOf="parent"-->
-<!--                app:layout_constraintTop_toBottomOf="@id/btn_create_experiment" />-->
-
-            <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/experiments_recycler_view"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:padding="16dp"
-                android:layout_marginTop="5dp"
-                app:layout_constraintTop_toBottomOf="@id/btn_create_all_experiments" />
-
-        </androidx.constraintlayout.widget.ConstraintLayout>
-    </androidx.core.widget.NestedScrollView>
-
+        </LinearLayout>
+    </LinearLayout>
     <androidx.constraintlayout.widget.ConstraintLayout
-        android:layout_height="match_parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/stick_button_list"
-        app:layout_constraintBottom_toBottomOf="parent"
-        android:layout_width="0dp"
-        app:layout_constraintWidth_percent="0.85">
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:background="@color/white"
+        android:orientation="horizontal"
+        app:layout_constraintTop_toBottomOf="@id/top_bar"
+        app:layout_constraintHeight_percent="0.95">
 
-        <androidx.constraintlayout.widget.ConstraintLayout
-            android:id="@+id/parameters"
-            android:layout_height="0dp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintBottom_toTopOf="@id/frame_container"
+        <androidx.core.widget.NestedScrollView
+            android:id="@+id/stick_button_list"
             android:layout_width="0dp"
-            app:layout_constraintHeight_percent="0.3">
+            android:layout_height="0dp"
+            android:background="@color/white"
+            android:orientation="vertical"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintHorizontal_bias="0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0"
+            app:layout_constraintWidth_percent="0.15">
 
             <androidx.constraintlayout.widget.ConstraintLayout
-                android:id="@+id/switches_layout"
-                android:layout_width="wrap_content"
-                android:layout_height="0dp"
-                app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintEnd_toStartOf="@id/experiment_info"
-                >
-
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@color/white"
+                android:orientation="vertical">
                 <Button
-                    android:id="@+id/btn_disable_virtual_stick"
+                    android:id="@+id/btn_enable_virtual_sticks"
                     style="@style/main_fragment_btn"
-                    android:text="disable VirtualStick"
+                    android:text="Enable VirtualStick"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    android:layout_height="wrap_content"
                     app:layout_constraintTop_toTopOf="parent" />
 
+                <Button
+                    android:id="@+id/btn_initialize_all"
+                    style="@style/main_fragment_btn"
+                    android:text="@string/btn_initialize_all"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/btn_enable_virtual_sticks" />
+
+                <Button
+                    android:id="@+id/btn_take_off"
+                    style="@style/main_fragment_btn"
+                    android:text="@string/btn_take_off"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/btn_initialize_all" />
+
+                <Button
+                    android:id="@+id/btn_land"
+                    style="@style/main_fragment_btn"
+                    android:text="@string/btn_land"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/btn_take_off" />
+
+                <Button
+                    android:id="@+id/btn_return_home"
+                    style="@style/main_fragment_btn"
+                    android:text="return home"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/btn_land" />
+
+                <Button
+                    android:id="@+id/btn_max_distance"
+                    style="@style/main_fragment_btn"
+                    android:text="Edit Max Distance"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/btn_return_home" />
+
+<!--                <Button-->
+<!--                    android:id="@+id/btn_move_backward"-->
+<!--                    style="@style/main_fragment_btn"-->
+<!--                    android:text="@string/btn_move_backward"-->
+<!--                    app:layout_constraintEnd_toEndOf="parent"-->
+<!--                    app:layout_constraintStart_toStartOf="parent"-->
+<!--                    app:layout_constraintTop_toBottomOf="@id/btn_move_forward" />-->
+
+<!--                <Button-->
+<!--                    android:id="@+id/btn_move_right"-->
+<!--                    style="@style/main_fragment_btn"-->
+<!--                    android:text="@string/btn_move_right"-->
+<!--                    app:layout_constraintEnd_toEndOf="parent"-->
+<!--                    app:layout_constraintStart_toStartOf="parent"-->
+<!--                    app:layout_constraintTop_toBottomOf="@id/btn_move_backward" />-->
+
+<!--                <Button-->
+<!--                    android:id="@+id/btn_move_left"-->
+<!--                    style="@style/main_fragment_btn"-->
+<!--                    android:text="@string/btn_move_left"-->
+<!--                    app:layout_constraintEnd_toEndOf="parent"-->
+<!--                    app:layout_constraintStart_toStartOf="parent"-->
+<!--                    app:layout_constraintTop_toBottomOf="@id/btn_move_right" />-->
+
+<!--                <Button-->
+<!--                    android:id="@+id/btn_rotate_right"-->
+<!--                    style="@style/main_fragment_btn"-->
+<!--                    android:text="@string/btn_rotate_right"-->
+<!--                    app:layout_constraintEnd_toEndOf="parent"-->
+<!--                    app:layout_constraintStart_toStartOf="parent"-->
+<!--                    app:layout_constraintTop_toBottomOf="@id/btn_move_left" />-->
 
                 <Button
                     android:id="@+id/btn_experiment_height"
@@ -232,110 +162,234 @@
                     android:text="elevate to experiment height"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    android:layout_height="wrap_content"
-                    app:layout_constraintTop_toBottomOf="@id/btn_disable_virtual_stick" />
-<!--                <RadioGroup-->
-<!--                    android:id="@+id/radio_group"-->
-<!--                    android:layout_width="wrap_content"-->
-<!--                    android:layout_height="wrap_content"-->
-<!--                    app:layout_constraintStart_toStartOf="parent"-->
-<!--                    app:layout_constraintTop_toTopOf="parent">-->
+                    app:layout_constraintTop_toBottomOf="@id/btn_max_distance" />
 
-<!--                    <RadioButton-->
-<!--                        android:id="@+id/radio_java"-->
-<!--                        android:layout_width="wrap_content"-->
-<!--                        android:layout_height="wrap_content"-->
-<!--                        android:text="Java"-->
-<!--                        app:layout_constraintStart_toStartOf="parent"-->
-<!--                        app:layout_constraintTop_toTopOf="parent" />-->
-
-<!--                    <RadioButton-->
-<!--                        android:id="@+id/radio_luaj"-->
-<!--                        android:layout_width="wrap_content"-->
-<!--                        android:layout_height="wrap_content"-->
-<!--                        android:text="LuaJ"-->
-<!--                        app:layout_constraintStart_toStartOf="parent"-->
-<!--                        app:layout_constraintTop_toBottomOf="@id/radio_java" />-->
-<!--                </RadioGroup>-->
-                <Switch
-                    android:id="@+id/flight_logs_switch"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    app:layout_constraintTop_toBottomOf="@id/btn_experiment_height"
+                <Button
+                    android:id="@+id/btn_get_heading"
+                    style="@style/main_fragment_btn"
+                    android:text="@string/btn_get_heading"
+                    app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    android:text="Show flight logs" />
+                    app:layout_constraintTop_toBottomOf="@id/btn_experiment_height" />
+
+                <Button
+                    android:id="@+id/btn_take_photo"
+                    style="@style/main_fragment_btn"
+                    android:text="@string/btn_take_photo"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/btn_get_heading" />
+
+
+                <Button
+                    android:id="@+id/btn_get_coordinates"
+                    style="@style/main_fragment_btn"
+                    android:text="Get Coordinates"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/btn_take_photo" />
+
+
+                <Button
+                    android:id="@+id/btn_export_data"
+                    style="@style/main_fragment_btn"
+                    android:text="Export Data"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/btn_get_coordinates" />
+
+                <Button
+                    android:id="@+id/btn_save_logcat"
+                    style="@style/main_fragment_btn"
+                    android:text="Save Logcat"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/btn_export_data" />
+
+                <Button
+                    android:id="@+id/btn_create_experiment"
+                    style="@style/main_fragment_btn"
+                    android:text="Create Experiment"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/btn_save_logcat" />
+
+                <Button
+                    android:id="@+id/btn_create_all_experiments"
+                    style="@style/main_fragment_btn"
+                    android:text="Create Experiments Preset"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/btn_create_experiment" />
+
+    <!--            <Button-->
+    <!--                android:id="@+id/btn_select_experiment"-->
+    <!--                style="@style/main_fragment_btn"-->
+    <!--                android:text="select experiment"-->
+    <!--                app:layout_constraintEnd_toEndOf="parent"-->
+    <!--                app:layout_constraintStart_toStartOf="parent"-->
+    <!--                app:layout_constraintTop_toBottomOf="@id/btn_create_experiment" />-->
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/experiments_recycler_view"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:padding="16dp"
+                    android:layout_marginTop="5dp"
+                    app:layout_constraintTop_toBottomOf="@id/btn_create_all_experiments" />
 
             </androidx.constraintlayout.widget.ConstraintLayout>
+        </androidx.core.widget.NestedScrollView>
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_height="match_parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/stick_button_list"
+            app:layout_constraintBottom_toBottomOf="parent"
+            android:layout_width="0dp"
+            app:layout_constraintWidth_percent="0.85">
 
             <androidx.constraintlayout.widget.ConstraintLayout
-                android:id="@+id/experiment_info"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintStart_toEndOf="@id/switches_layout">
-
-                <TextView
-                    android:id="@+id/experiment_display_name"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="5dp"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
-                <TextView
-                    android:id="@+id/experiment_model"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="5dp"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/experiment_display_name"/>
-                <TextView
-                    android:id="@+id/experiment_height"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="5dp"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/experiment_model"/>
-            </androidx.constraintlayout.widget.ConstraintLayout>
-            <TextView
-                android:id="@+id/experiment_area_description"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintStart_toEndOf="@id/experiment_info"
-                app:layout_constraintEnd_toEndOf="parent"/>
-        </androidx.constraintlayout.widget.ConstraintLayout>
-        <FrameLayout
-            android:id="@+id/frame_container"
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            app:layout_constraintTop_toBottomOf="@id/parameters"
-            app:layout_constraintHeight_percent="0.7">
-            <androidx.core.widget.NestedScrollView
-                android:id="@+id/updates_scroll_view"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:background="@color/white"
-                android:orientation="vertical"
+                android:id="@+id/parameters"
+                android:layout_height="0dp"
+                app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/parameters" >
+                app:layout_constraintBottom_toTopOf="@id/frame_container"
+                android:layout_width="0dp"
+                app:layout_constraintHeight_percent="0.3">
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/switches_layout"
+                    android:layout_width="wrap_content"
+                    android:layout_height="0dp"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintEnd_toStartOf="@id/experiment_info"
+                    >
+
+                    <Button
+                        android:id="@+id/btn_disable_virtual_stick"
+                        style="@style/main_fragment_btn"
+                        android:text="disable VirtualStick"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        android:layout_height="wrap_content"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+
+<!--                    <Button-->
+<!--                        android:id="@+id/btn_experiment_height"-->
+<!--                        style="@style/main_fragment_btn"-->
+<!--                        android:text="elevate to experiment height"-->
+<!--                        app:layout_constraintEnd_toEndOf="parent"-->
+<!--                        app:layout_constraintStart_toStartOf="parent"-->
+<!--                        android:layout_height="wrap_content"-->
+<!--                        app:layout_constraintTop_toBottomOf="@id/btn_disable_virtual_stick" />-->
+    <!--                <RadioGroup-->
+    <!--                    android:id="@+id/radio_group"-->
+    <!--                    android:layout_width="wrap_content"-->
+    <!--                    android:layout_height="wrap_content"-->
+    <!--                    app:layout_constraintStart_toStartOf="parent"-->
+    <!--                    app:layout_constraintTop_toTopOf="parent">-->
+
+    <!--                    <RadioButton-->
+    <!--                        android:id="@+id/radio_java"-->
+    <!--                        android:layout_width="wrap_content"-->
+    <!--                        android:layout_height="wrap_content"-->
+    <!--                        android:text="Java"-->
+    <!--                        app:layout_constraintStart_toStartOf="parent"-->
+    <!--                        app:layout_constraintTop_toTopOf="parent" />-->
+
+    <!--                    <RadioButton-->
+    <!--                        android:id="@+id/radio_luaj"-->
+    <!--                        android:layout_width="wrap_content"-->
+    <!--                        android:layout_height="wrap_content"-->
+    <!--                        android:text="LuaJ"-->
+    <!--                        app:layout_constraintStart_toStartOf="parent"-->
+    <!--                        app:layout_constraintTop_toBottomOf="@id/radio_java" />-->
+    <!--                </RadioGroup>-->
+                    <Switch
+                        android:id="@+id/flight_logs_switch"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        android:text="Show flight logs" />
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/experiment_info"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintStart_toEndOf="@id/switches_layout">
+
+                    <TextView
+                        android:id="@+id/experiment_display_name"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="5dp"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+                    <TextView
+                        android:id="@+id/experiment_model"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="5dp"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/experiment_display_name"/>
+                    <TextView
+                        android:id="@+id/experiment_height"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="5dp"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/experiment_model"/>
+                </androidx.constraintlayout.widget.ConstraintLayout>
                 <TextView
-                    android:id="@+id/test_flight_updates"
+                    android:id="@+id/experiment_area_description"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintTop_toTopOf="parent"
+                    android:textColor="@color/black"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toEndOf="@id/experiment_info"
+                    app:layout_constraintEnd_toEndOf="parent"/>
+            </androidx.constraintlayout.widget.ConstraintLayout>
+            <FrameLayout
+                android:id="@+id/frame_container"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                app:layout_constraintTop_toBottomOf="@id/parameters"
+                app:layout_constraintHeight_percent="0.7">
+                <androidx.core.widget.NestedScrollView
+                    android:id="@+id/updates_scroll_view"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text=""
-                    android:textColor="@color/black"
-                    android:textSize="12sp"
+                    android:background="@color/white"
+                    android:orientation="vertical"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent">
-                </TextView>
-            </androidx.core.widget.NestedScrollView>
-            <!--                layout="@layout/frag_dronegpt_chat"-->
-            <FrameLayout
-                android:id="@+id/fragment_chat_container"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent" />
-        </FrameLayout>
+                    app:layout_constraintTop_toBottomOf="@id/parameters" >
+                    <TextView
+                        android:id="@+id/test_flight_updates"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text=""
+                        android:textColor="@color/black"
+                        android:textSize="12sp"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent">
+                    </TextView>
+                </androidx.core.widget.NestedScrollView>
+                <!--                layout="@layout/frag_dronegpt_chat"-->
+                <FrameLayout
+                    android:id="@+id/fragment_chat_container"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent" />
+            </FrameLayout>
+        </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.constraintlayout.widget.ConstraintLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
