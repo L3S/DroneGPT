@@ -1,4 +1,4 @@
-package com.l3s.dronegpt.ui
+package com.l3s.dronegpt.ui.viewmodel
 
 import android.app.Application
 import androidx.lifecycle.AndroidViewModel
@@ -74,7 +74,9 @@ class ChatViewModel(application: Application) : AndroidViewModel(application) {
         _gptInsertCheck.postValue(false)
     }
 
-    fun insertContent(experimentId: Int, content: String, isUserContent: Boolean) = viewModelScope.launch(Dispatchers.IO) {
+    fun insertContent(experimentId: Int, content: String, isUserContent: Boolean) = viewModelScope.launch(
+        Dispatchers.IO
+    ) {
         databaseRepository.insertContent(experimentId, content, isUserContent)
         if (!isUserContent) {
             _gptInsertCheck.postValue(true)

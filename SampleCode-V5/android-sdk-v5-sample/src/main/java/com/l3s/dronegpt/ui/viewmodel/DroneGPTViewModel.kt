@@ -1,4 +1,4 @@
-package com.l3s.dronegpt.ui
+package com.l3s.dronegpt.ui.viewmodel
 
 import android.app.Application
 import androidx.lifecycle.AndroidViewModel
@@ -45,11 +45,15 @@ class DroneGPTViewModel(application: Application) : AndroidViewModel(application
         _deleteCheck.postValue(false)
     }
 
-    fun createGPT3Experiment(areaDescription: String, flightHeight: Int) =  viewModelScope.launch(Dispatchers.IO) {
+    fun createGPT3Experiment(areaDescription: String, flightHeight: Int) =  viewModelScope.launch(
+        Dispatchers.IO
+    ) {
         experimentRepository.insertGPT3Experiment(areaDescription, flightHeight)
     }
 
-    fun createGPT4Experiment(areaDescription: String, flightHeight: Int) = viewModelScope.launch(Dispatchers.IO) {
+    fun createGPT4Experiment(areaDescription: String, flightHeight: Int) = viewModelScope.launch(
+        Dispatchers.IO
+    ) {
         experimentRepository.insertGPT4Experiment(areaDescription, flightHeight)
     }
 
@@ -57,17 +61,30 @@ class DroneGPTViewModel(application: Application) : AndroidViewModel(application
         experimentRepository.insertExperimentsPreset()
     }
 
-    fun setExperimentExecutedCode(experimentId: Int, executedCode: String) = viewModelScope.launch(Dispatchers.IO) {
+    fun setExperimentExecutedCode(experimentId: Int, executedCode: String) = viewModelScope.launch(
+        Dispatchers.IO
+    ) {
         experimentRepository.setExecutedCode(experimentId, executedCode)
     }
 
-    fun setExperimentFlightLogs(experimentId: Int, flightLogs: String) = viewModelScope.launch(Dispatchers.IO) {
+    fun setExperimentFlightLogs(experimentId: Int, flightLogs: String) = viewModelScope.launch(
+        Dispatchers.IO
+    ) {
         experimentRepository.setFlightLogs(experimentId, flightLogs)
     }
 
-    fun createImage(experimentId: Int, generatedImageInfo: GeneratedMediaFileInfo, captureLocation: LocationCoordinate3D) =  viewModelScope.launch(Dispatchers.IO) {
+    fun createImage(experimentId: Int, generatedImageInfo: GeneratedMediaFileInfo, captureLocation: LocationCoordinate3D) =  viewModelScope.launch(
+        Dispatchers.IO
+    ) {
         imageRepository.insert(
-            Image(0, experimentId, generatedImageInfo.index, generatedImageInfo.fileSize, generatedImageInfo.createTime.toString(), captureLocation)
+            Image(
+                0,
+                experimentId,
+                generatedImageInfo.index,
+                generatedImageInfo.fileSize,
+                generatedImageInfo.createTime.toString(),
+                captureLocation
+            )
         )
     }
 

@@ -1,6 +1,5 @@
-package com.l3s.dronegpt.ui
+package com.l3s.dronegpt.ui.activity
 
-//import kotlinx.android.synthetic.main.dronegpt_main.test_flight_updates
 import ExperimentAdapter
 import android.app.AlertDialog
 import android.content.Intent
@@ -19,6 +18,8 @@ import com.l3s.dronegpt.FlightUtility
 import com.l3s.dronegpt.ScriptErrorListener
 import com.l3s.dronegpt.ScriptManager
 import com.l3s.dronegpt.data.database.Experiment
+import com.l3s.dronegpt.ui.fragment.ChatFragment
+import com.l3s.dronegpt.ui.viewmodel.DroneGPTViewModel
 import dji.sampleV5.aircraft.R
 import dji.sdk.keyvalue.value.camera.GeneratedMediaFileInfo
 import dji.sdk.keyvalue.value.common.LocationCoordinate3D
@@ -48,7 +49,6 @@ import kotlinx.android.synthetic.main.dronegpt_main.updates_scroll_view
 import java.io.File
 import java.io.IOException
 import java.time.LocalDateTime
-
 
 class DroneGPTActivity : AppCompatActivity(), ScriptErrorListener {
     private var updates: StringBuilder = StringBuilder().appendLine("updates:")
@@ -80,7 +80,7 @@ class DroneGPTActivity : AppCompatActivity(), ScriptErrorListener {
         supportFragmentManager.beginTransaction()
             .add(R.id.fragment_chat_container, ChatFragment())
             .commit()
-        val adapter = ExperimentAdapter {experiment ->
+        val adapter = ExperimentAdapter { experiment ->
             // This function is triggered when an experiment is clicked
             viewModel.setSelectedExperiment(experiment)
             selectedExperiment = experiment

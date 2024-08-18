@@ -3,7 +3,7 @@ package com.l3s.dronegpt
 import android.annotation.SuppressLint
 import android.location.Location
 import com.l3s.dronegpt.data.database.Experiment
-import com.l3s.dronegpt.ui.DroneGPTActivity
+import com.l3s.dronegpt.ui.activity.DroneGPTActivity
 import dji.sdk.keyvalue.key.CameraKey
 import dji.sdk.keyvalue.key.FlightControllerKey
 import dji.sdk.keyvalue.key.KeyTools

@@ -1,4 +1,4 @@
-package com.l3s.dronegpt.ui
+package com.l3s.dronegpt.ui.fragment
 
 import android.os.Build
 import android.os.Bundle
@@ -21,6 +21,8 @@ import com.l3s.dronegpt.ScriptManager
 import com.l3s.dronegpt.adapter.ChatContentAdapter
 import com.l3s.dronegpt.data.database.ChatContent
 import com.l3s.dronegpt.data.database.Experiment
+import com.l3s.dronegpt.ui.viewmodel.ChatViewModel
+import com.l3s.dronegpt.ui.viewmodel.DroneGPTViewModel
 import dji.sampleV5.aircraft.databinding.FragDronegptChatBinding
 import dji.sampleV5.aircraft.util.ToastUtils
 import kotlinx.coroutines.CoroutineScope
@@ -76,7 +78,12 @@ class ChatFragment : Fragment() {
         }
         binding.buildPromptBtn.setOnClickListener {
             if (this::experiment.isInitialized) {
-                binding.EDView.setText(ChatGPTUtility.buildPrompt(experiment.flightHeight, experiment.areaDescription))
+                binding.EDView.setText(
+                    ChatGPTUtility.buildPrompt(
+                        experiment.flightHeight,
+                        experiment.areaDescription
+                    )
+                )
             }
         }
     }
@@ -148,10 +155,12 @@ class ChatFragment : Fragment() {
                     ScriptManager.executeLuaScript(script)
                 } catch (e: Exception) {
                     ToastUtils.showToast("Error executing script ${e.localizedMessage}")
-                    Log.e("ChatFragment", """
+                    Log.e(
+                        "ChatFragment", """
                         Error executing script: $script 
                         Error: $e
-                    """.trimIndent())
+                    """.trimIndent()
+                    )
                 }
             }
             setNegativeButton("cancel", null)

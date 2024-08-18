@@ -19,7 +19,7 @@
 
     <fragment
         android:id="@+id/dronegpt_frag_chat"
-        android:name="com.l3s.dronegpt.ui.ChatFragment"
+        android:name="com.l3s.dronegpt.ui.fragment.ChatFragment"
         android:label="dronegpt_frag_chat"
         tools:layout="@layout/frag_dronegpt_chat" />
 

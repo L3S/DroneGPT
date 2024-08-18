@@ -1,4 +1,4 @@
-package com.l3s.dronegpt.ui
+package com.l3s.dronegpt.ui.activity
 
 import android.os.Bundle
 import android.view.View
@@ -9,6 +9,7 @@ import android.widget.Spinner
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import com.l3s.dronegpt.ChatGPTUtility
+import com.l3s.dronegpt.ui.viewmodel.DroneGPTViewModel
 import dji.sampleV5.aircraft.R
 import dji.sampleV5.aircraft.util.ToastUtils
 import kotlinx.android.synthetic.main.dronegpt_experiment_form.create_experiment_button
