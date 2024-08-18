@@ -7,13 +7,6 @@ import retrofit2.converter.gson.GsonConverterFactory
 import java.util.concurrent.TimeUnit
 
 object RetrofitInstance {
-//    private var okHttpClient = OkHttpClient
-//        .Builder()
-//        .connectTimeout(1, TimeUnit.MINUTES)
-//        .readTimeout(1, TimeUnit.MINUTES)
-//        .writeTimeout(1, TimeUnit.MINUTES)
-//        .build()
-
     private const val BASE_URL = "https://api.openai.com/"
     private const val OPENAI_API_KEY = BuildConfig.OPENAI_API_KEY
 

@@ -217,6 +217,9 @@
         app:layout_constraintTop_toBottomOf="@+id/text_view_news_title"
         app:layout_constraintVertical_bias="0" />
 
+
+
+
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/panel_icon_msg"
         android:layout_width="0dp"
@@ -229,105 +232,122 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="@+id/msg_panel"
         app:layout_constraintStart_toStartOf="@+id/msg_panel">
-
-        <ImageView
-            android:id="@+id/icon_sdk_forum"
-            android:layout_width="50dp"
-            android:layout_height="50dp"
+        <Button
+            android:id="@+id/dronegpt_btn"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
             android:elevation="10dp"
             android:foreground="?selectableItemBackground"
-            android:scaleType="centerInside"
-            android:src="@drawable/msg_icon"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintDimensionRatio="H,1:1"
-            app:layout_constraintEnd_toStartOf="@+id/guide_1"
-            app:layout_constraintHeight_percent="0.65"
-            app:layout_constraintStart_toStartOf="parent"
+            android:layout_marginRight="40dp"
+            android:layout_marginBottom="10dp"
+            android:background="@color/white"
+            android:gravity="center"
+            android:padding="8dp"
+            app:layout_constraintWidth_percent="0.3"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0"
-            tools:ignore="ContentDescription" />
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="50dp"
-            android:gravity="top|center"
-            android:text="@string/sdk_forum"
-            android:textColor="@color/white"
-            android:textSize="12sp"
-            app:layout_constraintEnd_toStartOf="@+id/guide_1"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="@+id/icon_sdk_forum" />
-
-        <androidx.constraintlayout.widget.Guideline
-            android:id="@+id/guide_1"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:orientation="vertical"
-            app:layout_constraintGuide_percent="0.33" />
-
-        <ImageView
-            android:id="@+id/icon_release_node"
-            android:layout_width="50dp"
-            android:layout_height="50dp"
-            android:scaleType="centerInside"
-            android:src="@drawable/release_icon"
-            android:elevation="10dp"
-            android:foreground="?selectableItemBackground"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintDimensionRatio="H,1:1"
-            app:layout_constraintEnd_toStartOf="@+id/guide_2"
-            app:layout_constraintHeight_percent="0.65"
-            app:layout_constraintStart_toEndOf="@+id/guide_1"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0"
-            tools:ignore="ContentDescription" />
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:gravity="top|center"
-            android:text="@string/release_nodes"
-            android:textColor="@color/white"
-            android:textSize="12sp"
-            app:layout_constraintEnd_toStartOf="@+id/guide_2"
-            app:layout_constraintStart_toStartOf="@+id/guide_1"
-            app:layout_constraintTop_toBottomOf="@+id/icon_release_node" />
-
-        <androidx.constraintlayout.widget.Guideline
-            android:id="@+id/guide_2"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:orientation="vertical"
-            app:layout_constraintGuide_percent="0.66" />
-
-        <ImageView
-            android:id="@+id/icon_tech_support"
-            android:layout_width="50dp"
-            android:layout_height="50dp"
-            android:scaleType="centerInside"
-            android:src="@drawable/tec_support_icon"
-            android:elevation="10dp"
-            android:foreground="?selectableItemBackground"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintDimensionRatio="H,1:1"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHeight_percent="0.65"
-            app:layout_constraintStart_toEndOf="@+id/guide_2"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0"
-            tools:ignore="ContentDescription" />
+            android:text="Open DroneGPT"
+            android:textColor="@color/selector_enable_button" />
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:gravity="top|center"
-            android:text="@string/tech_support"
-            android:textColor="@color/white"
-            android:textSize="12sp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="@+id/guide_2"
-            app:layout_constraintTop_toBottomOf="@+id/icon_tech_support" />
+<!--        <ImageView-->
+<!--            android:id="@+id/icon_sdk_forum"-->
+<!--            android:layout_width="50dp"-->
+<!--            android:layout_height="50dp"-->
+<!--            android:elevation="10dp"-->
+<!--            android:foreground="?selectableItemBackground"-->
+<!--            android:scaleType="centerInside"-->
+<!--            android:src="@drawable/msg_icon"-->
+<!--            app:layout_constraintBottom_toBottomOf="parent"-->
+<!--            app:layout_constraintDimensionRatio="H,1:1"-->
+<!--            app:layout_constraintEnd_toStartOf="@+id/guide_1"-->
+<!--            app:layout_constraintHeight_percent="0.65"-->
+<!--            app:layout_constraintStart_toStartOf="parent"-->
+<!--            app:layout_constraintTop_toTopOf="parent"-->
+<!--            app:layout_constraintVertical_bias="0"-->
+<!--            tools:ignore="ContentDescription" />-->
+
+<!--        <TextView-->
+<!--            android:layout_width="wrap_content"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:layout_marginTop="50dp"-->
+<!--            android:gravity="top|center"-->
+<!--            android:text="@string/sdk_forum"-->
+<!--            android:textColor="@color/white"-->
+<!--            android:textSize="12sp"-->
+<!--            app:layout_constraintEnd_toStartOf="@+id/guide_1"-->
+<!--            app:layout_constraintStart_toStartOf="parent"-->
+<!--            app:layout_constraintTop_toTopOf="@+id/icon_sdk_forum" />-->
+
+<!--        <androidx.constraintlayout.widget.Guideline-->
+<!--            android:id="@+id/guide_1"-->
+<!--            android:layout_width="wrap_content"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:orientation="vertical"-->
+<!--            app:layout_constraintGuide_percent="0.33" />-->
+
+<!--        <ImageView-->
+<!--            android:id="@+id/icon_release_node"-->
+<!--            android:layout_width="50dp"-->
+<!--            android:layout_height="50dp"-->
+<!--            android:scaleType="centerInside"-->
+<!--            android:src="@drawable/release_icon"-->
+<!--            android:elevation="10dp"-->
+<!--            android:foreground="?selectableItemBackground"-->
+<!--            app:layout_constraintBottom_toBottomOf="parent"-->
+<!--            app:layout_constraintDimensionRatio="H,1:1"-->
+<!--            app:layout_constraintEnd_toStartOf="@+id/guide_2"-->
+<!--            app:layout_constraintHeight_percent="0.65"-->
+<!--            app:layout_constraintStart_toEndOf="@+id/guide_1"-->
+<!--            app:layout_constraintTop_toTopOf="parent"-->
+<!--            app:layout_constraintVertical_bias="0"-->
+<!--            tools:ignore="ContentDescription" />-->
+
+<!--        <TextView-->
+<!--            android:layout_width="wrap_content"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:gravity="top|center"-->
+<!--            android:text="@string/release_nodes"-->
+<!--            android:textColor="@color/white"-->
+<!--            android:textSize="12sp"-->
+<!--            app:layout_constraintEnd_toStartOf="@+id/guide_2"-->
+<!--            app:layout_constraintStart_toStartOf="@+id/guide_1"-->
+<!--            app:layout_constraintTop_toBottomOf="@+id/icon_release_node" />-->
+
+<!--        <androidx.constraintlayout.widget.Guideline-->
+<!--            android:id="@+id/guide_2"-->
+<!--            android:layout_width="wrap_content"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:orientation="vertical"-->
+<!--            app:layout_constraintGuide_percent="0.66" />-->
+
+<!--        <ImageView-->
+<!--            android:id="@+id/icon_tech_support"-->
+<!--            android:layout_width="50dp"-->
+<!--            android:layout_height="50dp"-->
+<!--            android:scaleType="centerInside"-->
+<!--            android:src="@drawable/tec_support_icon"-->
+<!--            android:elevation="10dp"-->
+<!--            android:foreground="?selectableItemBackground"-->
+<!--            app:layout_constraintBottom_toBottomOf="parent"-->
+<!--            app:layout_constraintDimensionRatio="H,1:1"-->
+<!--            app:layout_constraintEnd_toEndOf="parent"-->
+<!--            app:layout_constraintHeight_percent="0.65"-->
+<!--            app:layout_constraintStart_toEndOf="@+id/guide_2"-->
+<!--            app:layout_constraintTop_toTopOf="parent"-->
+<!--            app:layout_constraintVertical_bias="0"-->
+<!--            tools:ignore="ContentDescription" />-->
+
+<!--        <TextView-->
+<!--            android:layout_width="wrap_content"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:gravity="top|center"-->
+<!--            android:text="@string/tech_support"-->
+<!--            android:textColor="@color/white"-->
+<!--            android:textSize="12sp"-->
+<!--            app:layout_constraintEnd_toEndOf="parent"-->
+<!--            app:layout_constraintStart_toStartOf="@+id/guide_2"-->
+<!--            app:layout_constraintTop_toBottomOf="@+id/icon_tech_support" />-->
     </androidx.constraintlayout.widget.ConstraintLayout>
 
     <TextView

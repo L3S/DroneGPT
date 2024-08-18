@@ -35,7 +35,7 @@ class ChatViewModel(application: Application) : AndroidViewModel(application) {
         get() = _gptInsertCheck
 
     fun postResponse(experiment: Experiment, query : String) = viewModelScope.launch {
-        //retrieve previous chat messages to add them to the request as context
+        //retrieve previous chat messages and add them to the request as context
         val chatContentByExperiment = withContext(Dispatchers.IO) {
             databaseRepository.getChatContentByExperimentId(experiment.id)
         }
@@ -60,20 +60,11 @@ class ChatViewModel(application: Application) : AndroidViewModel(application) {
                 })
             })
             addProperty("temperature", 0)
-//            addProperty("max_tokens", 500)
-//            addProperty("top_p", 1)
-//            addProperty("frequency_penalty", 0.0)
-//            addProperty("presence_penalty", 0.0)
         }
-//        Timber.tag("Request json").e("${jsonObject}")
         val response = openaiRepository.postResponse(jsonObject!!)
-//        Timber.tag("Response result").e("${response.choices.get(0)}")
-        // json -> object 는 fromJson
-        // object -> json 은 toJson
         val gson = Gson()
         val tempjson = gson.toJson(response.choices.get(0))
         val tempgson = gson.fromJson(tempjson, GptText::class.java)
-//        Timber.tag("Processing results").e("${tempgson.message.content}")
         insertContent(experiment.id, tempgson.message.content, false)
     }
 
@@ -89,10 +80,5 @@ class ChatViewModel(application: Application) : AndroidViewModel(application) {
             _gptInsertCheck.postValue(true)
         }
     }
-
-//    fun deleteSelectedContent(id : Int) = viewModelScope.launch(Dispatchers.IO) {
-//        databaseRepository.deleteSelectedContent(id)
-//        _deleteCheck.postValue(true)
-//    }
 
 }

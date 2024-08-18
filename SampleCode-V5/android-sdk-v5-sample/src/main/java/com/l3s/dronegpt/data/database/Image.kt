@@ -29,7 +29,6 @@ data class Image(
     val id: Int = 0,
     //foreign key
     val experimentId: Int,
-//    val localURI: String,
     val index: Int,
     val size: Long,
     val dateTimeString: String,

@@ -59,22 +59,9 @@ class ChatFragment : Fragment() {
                 }
             }
             .build()
-//        Coil.setImageLoader(imageLoader)
-
-//        binding.loading.visibility = View.INVISIBLE
-//        binding.loading.load(R.drawable.loading3)
-
-//        val selectedExperimentId = arguments?.getInt("selectedExperimentId", -1)
-//
-//        if (selectedExperimentId != null && selectedExperimentId != -1) {
-//            experimentId = selectedExperimentId
-//            viewModel.getContentData(experimentId)
-//        }
-
         setupObservers()
 
         binding.sendBtn.setOnClickListener {
-//            binding.loading.visibility = View.VISIBLE
             if (this::experiment.isInitialized) {
                 viewModel.postResponse(experiment, binding.EDView.text.toString())
                 viewModel.insertContent(
@@ -108,12 +95,6 @@ class ChatFragment : Fragment() {
             setContentListRV(branch)
         })
 
-//        viewModel.deleteCheck.observe(viewLifecycleOwner, Observer {
-//            if (it) {
-//                viewModel.getContentData(experimentId)
-//                branch = 1
-//            }
-//        })
 
         viewModel.gptInsertCheck.observe(viewLifecycleOwner, Observer {
             if (it) {

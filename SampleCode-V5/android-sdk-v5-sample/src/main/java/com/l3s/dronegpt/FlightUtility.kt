@@ -89,13 +89,6 @@ object FlightUtility {
     private var homeLocation: Location = Location("home")
 
     fun init() {
-        //logs https://developer.dji.com/api-reference/android-api/Components/SDKManager/DJISDKManager.html#djisdkmanager_getflyclogpath_inline
-        //set maxFlightHeight and maxFlightRadius
-        //EU RID? https://developer.dji.com/doc/mobile-sdk-tutorial/en/tutorials/compliance-eu.html#eu-rid
-        //obstacle avoidance
-        //set takeoff altitude
-        //return home when battery is low KeyLowBatteryRTHEnabled
-
         // connection status
         if (KeyManager.getInstance().getValue(
                 KeyTools.createKey(FlightControllerKey.KeyConnection),
@@ -119,85 +112,6 @@ object FlightUtility {
         homeLocation.longitude = homeCoordinates.longitude
     }
 
-//    fun testFlightFullInit(obstacleAvoidance: Boolean, takeoffAltitude: Double, altitudeLimit: Int, distanceLimit: Int) {
-//        //set home location
-//        setHomeToCurrentLocation()
-//        //set takeoff altitude
-//        KeyTools.createKey(FlightControllerKey.KeyTakeoffLocationAltitude).set(takeoffAltitude, {
-//            activity.addUpdate("takeoff altitude set to $takeoffAltitude")
-//        }, {
-//            activity.addUpdate("could not set takeoff altitude to $takeoffAltitude $it")
-//        })
-//        //enable automatic return to home when battery is low
-//        KeyTools.createKey(FlightControllerKey.KeyLowBatteryRTHEnabled).set(true, {
-//            activity.addUpdate("lowBatteryRTH enabled")
-//        }, {
-//            activity.addUpdate("could not enable lowBatteryRTH $it")
-//        })
-//        //set max flight altitude
-//        KeyTools.createKey(FlightControllerKey.KeyHeightLimit).set(altitudeLimit, {
-//            activity.addUpdate("max flight altitude set to $altitudeLimit")
-//        }, {
-//            activity.addUpdate("could not set max flight altitude to $altitudeLimit $it")
-//        })
-//
-//        //enable and set max distance to home point
-//        KeyTools.createKey(FlightControllerKey.KeyDistanceLimitEnabled).set(true, {
-//            activity.addUpdate("enabled distance limit")
-//        }, {
-//            activity.addUpdate("could enable distance $it")
-//        })
-//        KeyTools.createKey(FlightControllerKey.KeyDistanceLimit).set(distanceLimit, {
-//            activity.addUpdate("distance limit set to $distanceLimit")
-//        }, {
-//            activity.addUpdate("could not set distance limit to $distanceLimit: $it")
-//        })
-//        //TODO: test obstacle avoidance type BYPASS
-//        //TODO: test takeoff without any obstacle avoidance
-////        if(obstacleAvoidance) {
-////            PerceptionManager.getInstance().setObstacleAvoidanceType(
-////                ObstacleAvoidanceType.BRAKE,
-////                object : CommonCallbacks.CompletionCallback {
-////                    override fun onSuccess() {
-////                        activity.addUpdate("obstacle avoidance set to brake")
-////                    }
-////
-////                    override fun onFailure(error: IDJIError) {
-////                        activity.addUpdate("could not set obstacle avoidance to brake $error")
-////                    }
-////                })
-////        } else {
-////            PerceptionManager.getInstance().setObstacleAvoidanceType(
-////                ObstacleAvoidanceType.CLOSE,
-////                object : CommonCallbacks.CompletionCallback {
-////                    override fun onSuccess() {
-////                        activity.addUpdate("obstacle avoidance set to close")
-////                    }
-////
-////                    override fun onFailure(error: IDJIError) {
-////                        activity.addUpdate("could not set obstacle avoidance to close $error")
-////                    }
-////                })
-////        }
-//        //TODO: test if needed -> not possible with this drone
-//        //set regulation region and operator id
-////        UASRemoteIDManager.getInstance().setUASRemoteIDAreaStrategy(AreaStrategy.EUROPEAN_STRATEGY)
-////        UASRemoteIDManager.getInstance().setOperatorRegistrationNumber("", object : CommonCallbacks.CompletionCallback {
-////            override fun onSuccess() {
-////                activity.addUpdate("Remote ID set successfully")
-////            }
-////            override fun onFailure(error: IDJIError) {
-////                activity.addUpdate("could not set Remote ID $error")
-////            }
-////        })
-//
-//        val connectivity = KeyTools.createKey(FlightControllerKey.KeyConnection).get()
-//        activity.addUpdate("KeyConnection is currently: $connectivity")
-//        val gpsSignal = KeyTools.createKey(FlightControllerKey.KeyGPSSignalLevel).get()?.value()
-//        activity.addUpdate("GPS signal level is currently: $gpsSignal")
-//    }
-
-
     fun setActivityObject(activity: DroneGPTActivity) {
         this.activity = activity
     }
@@ -220,30 +134,6 @@ object FlightUtility {
                 activity.createImage(experimentInProgress, generatedImageInfo, getLocation3D())
             }
 
-            // confirm continue landing.
-            // When the aircraft is at an altitude of less than 0.7 meters above the ground, the aircraft will stop landing and wait for confirmation.
-            // removed for this being unsafe in some cases -> confirm with RC instead
-//            KeyTools.createKey(FlightControllerKey.KeyIsLandingConfirmationNeeded).listen(activity, false) {
-//                if (it == true) {
-//                    FlightControllerKey.KeyConfirmLanding.create().action({
-//                        activity.addUpdate("confirmed landing")
-//                    }, { e: IDJIError ->
-//                        activity.addUpdate("could not confirm landing $e")
-//                    })
-//                }
-//            }
-
-            // testing:
-
-            // set home to current location
-            // set maxFlightHeight and maxFlightDistance takOffAltitude -> enable automatic return to home when battery is low ->
-            // Set RTH Height ->
-            // Turn on and setup virtualstick ->
-
-
-            //set home location -> after takeoff
-            //        setHomeToCurrentLocation()
-
             //set max flight altitude
             KeyTools.createKey(FlightControllerKey.KeyHeightLimit).set(altitudeLimit, {
                 activity.addUpdate("max flight altitude set to $altitudeLimit")
@@ -258,12 +148,6 @@ object FlightUtility {
                 activity.addUpdate("could enable distance $it")
             })
 
-            //moved to a separate fun
-//            KeyTools.createKey(FlightControllerKey.KeyDistanceLimit).set(defaultDistanceLimit, {
-//                activity.addUpdate("distance limit set to $defaultDistanceLimit")
-//            }, {
-//                activity.addUpdate("could not set distance limit to $defaultDistanceLimit: $it")
-//            })
             //set max distance to home point
             setDistanceLimit(defaultDistanceLimit)
 
@@ -312,18 +196,6 @@ object FlightUtility {
                     activity.addUpdate("aircraft is out of control. performing fail safe behavior")
                 }
             }
-
-
-            //get takeoff altitude
-//            activity.addUpdate(
-//                "KeyTakeoffLocationAltitude: ${
-//                    KeyTools.createKey(FlightControllerKey.KeyTakeoffLocationAltitude).get()
-//                        .toString()
-//                }"
-//            )
-//            activity.addUpdate("Current altitude: ${getAltitude().toString()}")
-            //        KeyTools.createKey(FlightControllerKey.KeyTakeoffLocationAltitude).get().toString()
-
             setReturnHomeAltitude()
         }
     }
@@ -362,7 +234,6 @@ object FlightUtility {
         })
     }
 
-    //TODO: call before each experiment
     private fun setReturnHomeAltitude() {
         if(this::experimentInProgress.isInitialized) {
             //set return home altitude
@@ -392,11 +263,11 @@ object FlightUtility {
             )
     }
 
-    fun getLatitude(): Double {
+    private fun getLatitude(): Double {
         return getLocation3D().latitude
     }
 
-    fun getLongitude(): Double {
+    private fun getLongitude(): Double {
         return getLocation3D().longitude
     }
 
@@ -426,41 +297,6 @@ object FlightUtility {
         }
     }
 
-
-    //DEPRECATED
-//    fun testGetXCoordinate(homeLat: Double, homeLong: Double, currentLongitude: Double): Double {
-//        val homeLocation = Location("homeTestLocation")
-//        homeLocation.latitude = homeLat
-//        homeLocation.longitude = homeLong
-//
-//        val currentXAxisLocation = Location("xAxisLocation")
-//        currentXAxisLocation.latitude = homeLocation.latitude
-//        currentXAxisLocation.longitude = currentLongitude
-//        val distance = homeLocation.distanceTo(currentXAxisLocation)
-//        return if (currentXAxisLocation.longitude >= homeLocation.longitude) {
-//            distance.toDouble()
-//        } else {
-//            (-distance).toDouble()
-//        }
-//    }
-//
-    //DEPRECATED
-//    fun testGetYCoordinate(homeLat: Double, homeLong: Double, currentLatitude: Double): Double {
-//        val homeLocation = Location("homeTestLocation")
-//        homeLocation.latitude = homeLat
-//        homeLocation.longitude = homeLong
-//
-//        val currentYAxisLocation = Location("yAxisLocation")
-//        currentYAxisLocation.longitude = homeLocation.longitude
-//        currentYAxisLocation.latitude = currentLatitude
-//        val distance = homeLocation.distanceTo(currentYAxisLocation)
-//        return if (currentYAxisLocation.latitude >= homeLocation.latitude) {
-//            distance.toDouble()
-//        } else {
-//            (-distance).toDouble()
-//        }
-//    }
-
     //called by ChatGPT
     fun getDistanceToHome(): Double {
         val threeDLocation = getLocation3D()
@@ -479,21 +315,6 @@ object FlightUtility {
         return heading
     }
 
-    //DEPRECATED
-//    fun getGimbalAngle(): Double {
-//        return KeyTools.createKey(GimbalKey.KeyGimbalAttitude).get()?.pitch ?: 0.0
-//    }
-
-
-    private fun preCommandCheck(): Boolean {
-        //check connectivity
-        //check battery
-        //check GPSSignalLevel
-        return (KeyTools.createKey(FlightControllerKey.KeyConnection).get() == true &&
-                KeyTools.createKey(FlightControllerKey.KeyGPSSignalLevel).get()?.value()!! >= 2)
-
-//        return true
-    }
 
     fun getConnectionAndGpsSignalLevel() {
         activity.addUpdate("KeyConnection: ${
@@ -509,17 +330,9 @@ object FlightUtility {
 
 
     fun takeOff() {
-//        takeOffLocation = KeyManager.getInstance()
-//            .getValue(
-//                KeyTools.createKey(FlightControllerKey.KeyAircraftLocation3D),
-//                LocationCoordinate3D(0.0, 0.0, 0.0)
-//            )
-
         //takeoff
         FlightControllerKey.KeyStartTakeoff.create().action({
             activity.addUpdate("takeoff successful")
-            //Set home location??
-
         }, { e: IDJIError ->
             activity.addUpdate("could not takeoff $e")
         })
@@ -530,7 +343,6 @@ object FlightUtility {
             enableVirtualStick()
         }
         virtualStickParam.verticalThrottle = experimentInProgress.flightHeight.toDouble()
-//        adjustFlightParameters(0.0, 0.0, 0.0, experimentInProgress.flightHeight.toDouble())
         if (!flightParametersTransmitting) {
             flightParametersTransmitting = true
             transmitFlightParameters()
@@ -661,13 +473,10 @@ object FlightUtility {
         Timer().scheduleAtFixedRate( object : TimerTask() {
             override fun run() {
                 if (virtualStickEnabled) {
-//                    Log.i(TAG, "transmitting")
-//                    activity.addUpdate("transmitting: $virtualStickParam.pitch")
                     try {
                         VirtualStickManager
                             .getInstance()
                             .sendVirtualStickAdvancedParam(virtualStickParam)
-//                        activity.addUpdate("transmitting pitch: ${virtualStickParam.pitch}, roll: ${virtualStickParam.roll}, yaw: ${virtualStickParam.yaw}, vThrottle: ${virtualStickParam.verticalThrottle}")
                     } catch (e: IOException) {
                         activity.addUpdate("error sending parameters: $e")
                     }
@@ -682,19 +491,4 @@ object FlightUtility {
         endFlight()
     }
 
-    //DEPRECATED
-//    fun planarDistance(lat1: Double, lon1: Double, lat2: Double, lon2: Double): Double {
-//        val earthRadius = 6378137 // Radius of the earth in meters (WGS84)
-//        val dLat = Math.toRadians(lat2 - lat1) // Delta latitude in radians
-//        val dLon = Math.toRadians(lon2 - lon1) // Delta longitude in radians
-//        val latAvg = Math.toRadians((lat1 + lat2) / 2.0) // Average latitude in radians
-//
-//        val meterPerLat = Math.PI * earthRadius / 180.0 // meters per degree of latitude
-//        val meterPerLon = meterPerLat * cos(latAvg) // meters per degree of longitude at average latitude
-//
-//        val x = dLon * meterPerLon // Distance in meters on the x-axis
-//        val y = dLat * meterPerLat // Distance in meters on the y-axis
-//
-//        return sqrt(x * x + y * y) // Pythagorean theorem for final distance
-//    }
 }

@@ -47,9 +47,4 @@ interface ExperimentDao {
     @Query("UPDATE experiments SET flightLogs = :flightLogs WHERE id = :experimentId")
     fun setFlightLogs(experimentId: Int, flightLogs: String): Int
 
-//    @Query("UPDATE experiments SET flightRecordPath = :flightRecordPath WHERE id = :experimentId")
-//    fun setFlightRecordPath(experimentId: Int, flightRecordPath: String): Int
-//
-//    @Query("UPDATE experiments SET flightCompactLogsPath = :flightCompactLogsPath WHERE id = :experimentId")
-//    fun setFlightCompactLogsPath(experimentId: Int, flightCompactLogsPath: String): Int
 }

@@ -87,14 +87,4 @@ class DroneGPTViewModel(application: Application) : AndroidViewModel(application
     }
 
 
-//    fun setLogsPath(experimentId: Int, flightRecordPath: String, flightCompactLogsPath: String) {
-//        experimentRepository.setLogsPath(experimentId, flightRecordPath, flightCompactLogsPath)
-//    }
-
-
-//    fun deleteSelectedContent(id : Int) = viewModelScope.launch(Dispatchers.IO) {
-//        databaseRepository.deleteSelectedContent(id)
-//        _deleteCheck.postValue(true)
-//    }
-
 }

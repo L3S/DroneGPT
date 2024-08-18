@@ -134,7 +134,7 @@ abstract class DJIMainActivity : AppCompatActivity() {
             }
         }
 
-        panel_icon_msg.setOnClickListener {
+        dronegpt_btn.setOnClickListener {
             val intent = Intent(this@DJIMainActivity, DroneGPTActivity::class.java)
             startActivity(intent)
         }

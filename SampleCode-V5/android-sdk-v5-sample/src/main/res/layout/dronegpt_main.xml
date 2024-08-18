@@ -18,8 +18,6 @@
             android:layout_height="match_parent"
             android:gravity="center_horizontal"
             android:orientation="horizontal">
-    <!--        dji.v5.ux.core.widget.gpssignal-->
-    <!--        <dji.v5.ux.widget.GPSSignalWidget-->
             <!--        device health and status-->
             <dji.v5.ux.core.widget.remotecontrollersignal.RemoteControllerSignalWidget
                 android:layout_width="wrap_content"
@@ -124,37 +122,6 @@
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@id/btn_return_home" />
 
-<!--                <Button-->
-<!--                    android:id="@+id/btn_move_backward"-->
-<!--                    style="@style/main_fragment_btn"-->
-<!--                    android:text="@string/btn_move_backward"-->
-<!--                    app:layout_constraintEnd_toEndOf="parent"-->
-<!--                    app:layout_constraintStart_toStartOf="parent"-->
-<!--                    app:layout_constraintTop_toBottomOf="@id/btn_move_forward" />-->
-
-<!--                <Button-->
-<!--                    android:id="@+id/btn_move_right"-->
-<!--                    style="@style/main_fragment_btn"-->
-<!--                    android:text="@string/btn_move_right"-->
-<!--                    app:layout_constraintEnd_toEndOf="parent"-->
-<!--                    app:layout_constraintStart_toStartOf="parent"-->
-<!--                    app:layout_constraintTop_toBottomOf="@id/btn_move_backward" />-->
-
-<!--                <Button-->
-<!--                    android:id="@+id/btn_move_left"-->
-<!--                    style="@style/main_fragment_btn"-->
-<!--                    android:text="@string/btn_move_left"-->
-<!--                    app:layout_constraintEnd_toEndOf="parent"-->
-<!--                    app:layout_constraintStart_toStartOf="parent"-->
-<!--                    app:layout_constraintTop_toBottomOf="@id/btn_move_right" />-->
-
-<!--                <Button-->
-<!--                    android:id="@+id/btn_rotate_right"-->
-<!--                    style="@style/main_fragment_btn"-->
-<!--                    android:text="@string/btn_rotate_right"-->
-<!--                    app:layout_constraintEnd_toEndOf="parent"-->
-<!--                    app:layout_constraintStart_toStartOf="parent"-->
-<!--                    app:layout_constraintTop_toBottomOf="@id/btn_move_left" />-->
 
                 <Button
                     android:id="@+id/btn_experiment_height"
@@ -222,19 +189,12 @@
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@id/btn_create_experiment" />
 
-    <!--            <Button-->
-    <!--                android:id="@+id/btn_select_experiment"-->
-    <!--                style="@style/main_fragment_btn"-->
-    <!--                android:text="select experiment"-->
-    <!--                app:layout_constraintEnd_toEndOf="parent"-->
-    <!--                app:layout_constraintStart_toStartOf="parent"-->
-    <!--                app:layout_constraintTop_toBottomOf="@id/btn_create_experiment" />-->
 
                 <androidx.recyclerview.widget.RecyclerView
                     android:id="@+id/experiments_recycler_view"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:padding="16dp"
+                    android:padding="14dp"
                     android:layout_marginTop="5dp"
                     app:layout_constraintTop_toBottomOf="@id/btn_create_all_experiments" />
 
@@ -278,37 +238,6 @@
                         app:layout_constraintTop_toTopOf="parent" />
 
 
-<!--                    <Button-->
-<!--                        android:id="@+id/btn_experiment_height"-->
-<!--                        style="@style/main_fragment_btn"-->
-<!--                        android:text="elevate to experiment height"-->
-<!--                        app:layout_constraintEnd_toEndOf="parent"-->
-<!--                        app:layout_constraintStart_toStartOf="parent"-->
-<!--                        android:layout_height="wrap_content"-->
-<!--                        app:layout_constraintTop_toBottomOf="@id/btn_disable_virtual_stick" />-->
-    <!--                <RadioGroup-->
-    <!--                    android:id="@+id/radio_group"-->
-    <!--                    android:layout_width="wrap_content"-->
-    <!--                    android:layout_height="wrap_content"-->
-    <!--                    app:layout_constraintStart_toStartOf="parent"-->
-    <!--                    app:layout_constraintTop_toTopOf="parent">-->
-
-    <!--                    <RadioButton-->
-    <!--                        android:id="@+id/radio_java"-->
-    <!--                        android:layout_width="wrap_content"-->
-    <!--                        android:layout_height="wrap_content"-->
-    <!--                        android:text="Java"-->
-    <!--                        app:layout_constraintStart_toStartOf="parent"-->
-    <!--                        app:layout_constraintTop_toTopOf="parent" />-->
-
-    <!--                    <RadioButton-->
-    <!--                        android:id="@+id/radio_luaj"-->
-    <!--                        android:layout_width="wrap_content"-->
-    <!--                        android:layout_height="wrap_content"-->
-    <!--                        android:text="LuaJ"-->
-    <!--                        app:layout_constraintStart_toStartOf="parent"-->
-    <!--                        app:layout_constraintTop_toBottomOf="@id/radio_java" />-->
-    <!--                </RadioGroup>-->
                     <Switch
                         android:id="@+id/flight_logs_switch"
                         android:layout_width="wrap_content"
@@ -387,7 +316,8 @@
                 <FrameLayout
                     android:id="@+id/fragment_chat_container"
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent" />
+                    android:layout_height="match_parent"
+                    android:background="@color/black" />
             </FrameLayout>
         </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.constraintlayout.widget.ConstraintLayout>

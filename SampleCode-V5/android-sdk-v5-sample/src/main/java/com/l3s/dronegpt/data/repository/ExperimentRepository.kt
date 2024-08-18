@@ -35,9 +35,5 @@ class ExperimentsRepository(application: Application) {
 
     fun setFlightLogs(id: Int, flightLogs: String) = database.experimentDao().setFlightLogs(id, flightLogs)
 
-//    fun setLogsPath(id: Int, flightRecordPath: String, flightCompactLogsPath: String) {
-//        database.experimentDao().setFlightRecordPath(id, flightRecordPath)
-//        database.experimentDao().setFlightCompactLogsPath(id, flightCompactLogsPath)
-//    }
 }
 

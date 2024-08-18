@@ -51,9 +51,6 @@ import java.time.LocalDateTime
 
 
 class DroneGPTActivity : AppCompatActivity(), ScriptErrorListener {
-//    protected val msdkCommonOperateVm: MSDKCommonOperateVm by viewModels()
-//    private val testToolsVM: TestToolsVM by viewModels()
-    private var luajExecution: Boolean = false
     private var updates: StringBuilder = StringBuilder().appendLine("updates:")
     private val viewModel: DroneGPTViewModel by viewModels()
     private var experimentsList = ArrayList<Experiment>()
@@ -62,37 +59,8 @@ class DroneGPTActivity : AppCompatActivity(), ScriptErrorListener {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.dronegpt_main)
-//        window.decorView.apply {
-//            systemUiVisibility =
-//                View.SYSTEM_UI_FLAG_HIDE_NAVIGATION or View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY or View.SYSTEM_UI_FLAG_FULLSCREEN or
-//                        View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN
-//        }
-//
-//        window.decorView.setOnSystemUiVisibilityChangeListener() {
-//            if (it and View.SYSTEM_UI_FLAG_FULLSCREEN == 0) {
-//                window.decorView.systemUiVisibility = (View.SYSTEM_UI_FLAG_LAYOUT_STABLE or
-//                        View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION or
-//                        View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN or
-//                        View.SYSTEM_UI_FLAG_FULLSCREEN or
-//                        View.SYSTEM_UI_FLAG_IMMERSIVE or
-//                        View.SYSTEM_UI_FLAG_HIDE_NAVIGATION)
-//            }
-//        }
-//
-//        loadTitleView()
-//
-//        DJIToastUtil.dJIToastLD = testToolsVM.djiToastResult
-//        testToolsVM.djiToastResult.observe(this) { result ->
-//            result?.msg?.let {
-//                ToastUtils.showToast(it)
-//            }
-//        }
-//
-//
-//        loadPages()
         ScriptManager.setupLuaEnvironment()
         ScriptManager.errorListener = this
-//        initRadioButtons()
         initBtnClickListener()
         updateText()
         FlightUtility.setActivityObject(this)
@@ -113,14 +81,10 @@ class DroneGPTActivity : AppCompatActivity(), ScriptErrorListener {
             .add(R.id.fragment_chat_container, ChatFragment())
             .commit()
         val adapter = ExperimentAdapter {experiment ->
-            // This lambda function is triggered when an experiment is clicked
-//            ToastUtils.showToast("experiment ${it.id} selected in activity")
+            // This function is triggered when an experiment is clicked
             viewModel.setSelectedExperiment(experiment)
             selectedExperiment = experiment
-//            updates_scroll_view.visibility = View.GONE
-//            fragment_chat_container.visibility = View.VISIBLE
             Handler(Looper.getMainLooper()).post {
-//                test_flight_updates.text = updates.toString()
                 experiment_display_name.text = "Experiment ${experiment.id.toString()}"
                 experiment_model.text = "${experiment.openaiModel}"
                 experiment_height.text = "Flight height: ${experiment.flightHeight} meters"
@@ -138,26 +102,10 @@ class DroneGPTActivity : AppCompatActivity(), ScriptErrorListener {
         })
     }
 
-//        private fun initRadioButtons() {
-//        radio_java.setOnCheckedChangeListener { buttonView, isChecked ->
-//            if (isChecked) {
-//                this.luajExecution = false
-//                ToastUtils.showToast("Java execution selected")
-//                initBtnClickListener()
-//            }
-//        }
-//        radio_luaj.setOnCheckedChangeListener { buttonView, isChecked ->
-//            if (isChecked) {
-//                this.luajExecution = true
-//                ToastUtils.showToast("LuaJ execution selected")
-//                initBtnClickListener()
-//            }
-//        }
-//    }
+
 
     private fun initBtnClickListener() {
         btn_enable_virtual_sticks.setOnClickListener {
-//            FlightUtility.initializeFlight(false)
             FlightUtility.enableVirtualStick()
         }
         btn_disable_virtual_stick.setOnClickListener {
@@ -210,21 +158,6 @@ class DroneGPTActivity : AppCompatActivity(), ScriptErrorListener {
 
         btn_create_all_experiments.setOnClickListener {
             viewModel.createExperimentsPreset()
-
-
-            //using this for testing:
-//            val results = FloatArray(1)
-//            Location.distanceBetween(52.47051956676109, 13.414233865845508,52.46976142133504, 13.412055912131855, results)
-//            addUpdate("Distance test 1 expected value = 171m. actual value = ${results[0]}")
-//
-//            Location.distanceBetween(52.47051956676109, 13.414233865845508,52.47051956676109, 13.412055912131855, results)
-//            addUpdate("X Distance test 1 expected value = 150m. actual value = ${results[0]}")
-//
-//            Location.distanceBetween(52.47051956676109, 13.414233865845508,52.46976142133504, 13.414233865845508, results)
-//            addUpdate("Y Distance test 1 expected value = 82m. actual value = ${results[0]}")
-
-
-
         }
         btn_save_logcat.setOnClickListener {
             try {
@@ -240,30 +173,6 @@ class DroneGPTActivity : AppCompatActivity(), ScriptErrorListener {
                 addUpdate("LogCapture Error saving log file $e")
             }
         }
-//        btn_take_off.setOnClickListener {
-//            ScriptManager.executeLuaScript("take_off()")
-//        }
-//        btn_land.setOnClickListener {
-//            ScriptManager.executeLuaScript("end_flight()")
-//        }
-//        btn_move_forward.setOnClickListener {
-//            ScriptManager.executeLuaScript("adjust_flight_parameters(0.0, 23.0,0.0)")
-//        }
-//        btn_move_backward.setOnClickListener {
-//            ScriptManager.executeLuaScript("adjust_flight_parameters(0.0, -23.0,0.0)")
-//        }
-//        btn_move_right.setOnClickListener {
-//            ScriptManager.executeLuaScript("adjust_flight_parameters(23.0, 0.0,0.0)")
-//        }
-//        btn_move_left.setOnClickListener {
-//            ScriptManager.executeLuaScript("adjust_flight_parameters(-23.0, 0.0,0.0)")
-//        }
-//        btn_rotate_left.setOnClickListener {
-//            ScriptManager.executeLuaScript("adjust_flight_parameters(0.0, 0.0, -50.0)")
-//        }
-//        btn_rotate_right.setOnClickListener {
-//            ScriptManager.executeLuaScript("adjust_flight_parameters(0.0, 0.0, 50.0)")
-//        }
         btn_get_heading.setOnClickListener {
             ScriptManager.executeLuaScript("print(get_compass_heading())")
         }
@@ -273,23 +182,6 @@ class DroneGPTActivity : AppCompatActivity(), ScriptErrorListener {
         btn_get_coordinates.setOnClickListener {
             addUpdate("Distance to home: ${FlightUtility.getDistanceToHome()}")
             addUpdate("Current Coordinates: X = ${FlightUtility.getCurrentXCoordinate()}, Y = ${FlightUtility.getCurrentYCoordinate()}")
-
-            //TESTS
-//            //home = 52.46879977407918, 13.404097181321797
-//            // Test 1 = 52.469248247489695, 13.40481913685554 expected x=50, y=50
-//            addUpdate("Test 1: x=${FlightUtility.testGetXCoordinate(52.46879977407918, 13.404097181321797, 13.40481913685554)}, y=${FlightUtility.testGetYCoordinate(52.46879977407918, 13.404097181321797, 52.469248247489695)}")
-//            // Test 2 = 52.46925232181403, 13.404096818508132 expected x=0., y=50
-//            addUpdate("Test 2: x=${FlightUtility.testGetXCoordinate(52.46879977407918, 13.404097181321797, 13.404096818508132)}, y=${FlightUtility.testGetYCoordinate(52.46879977407918, 13.404097181321797, 52.46925232181403)}")
-//            // Test 3 = 52.46924621032878, 13.402608708947184 expected x=-100, y=50
-//            addUpdate("Test 3: x=${FlightUtility.testGetXCoordinate(52.46879977407918, 13.404097181321797, 13.402608708947184)}, y=${FlightUtility.testGetYCoordinate(52.46879977407918, 13.404097181321797, 52.46924621032878)}")
-//            // Test 4 = 52.46878377203923, 13.403060157914435 expected x=-70, y=0
-//            addUpdate("Test 4: x=${FlightUtility.testGetXCoordinate(52.46879977407918, 13.404097181321797, 13.403060157914435)}, y=${FlightUtility.testGetYCoordinate(52.46879977407918, 13.404097181321797, 52.46878377203923)}")
-//            // Test 5 = 52.46842318903735, 13.403060157914435 expected x=-70, y=-40
-//            addUpdate("Test 5: x=${FlightUtility.testGetXCoordinate(52.46879977407918, 13.404097181321797, 13.403060157914435)}, y=${FlightUtility.testGetYCoordinate(52.46879977407918, 13.404097181321797, 52.46842318903735)}")
-//            // Test 6 = 52.46807362325268, 13.404091860095912 expected x=0, y=-80
-//            addUpdate("Test 6: x=${FlightUtility.testGetXCoordinate(52.46879977407918, 13.404097181321797, 13.404091860095912)}, y=${FlightUtility.testGetYCoordinate(52.46879977407918, 13.404097181321797, 52.46807362325268)}")
-//            // Test 7 = 52.46807362324435, 13.405869887428333 expected x=120, y=-80
-//            addUpdate("Test 7: x=${FlightUtility.testGetXCoordinate(52.46879977407918, 13.404097181321797, 13.405869887428333 )}, y=${FlightUtility.testGetYCoordinate(52.46879977407918, 13.404097181321797, 52.46807362324435)}")
         }
     }
 
@@ -320,10 +212,6 @@ class DroneGPTActivity : AppCompatActivity(), ScriptErrorListener {
         updateText()
     }
 
-//    fun setLogsPathToExperiment(experimentId: Int, flightRecordPath: String, flightCompactLogsPath: String) {
-//        viewModel.setLogsPath(experimentId, flightRecordPath, flightCompactLogsPath)
-//    }
-
     fun createImage(experiment: Experiment, generatedImageInfo: GeneratedMediaFileInfo?, location3D: LocationCoordinate3D) {
         if (generatedImageInfo != null) {
             viewModel.createImage(experiment.id, generatedImageInfo, location3D)
@@ -345,14 +233,5 @@ class DroneGPTActivity : AppCompatActivity(), ScriptErrorListener {
     override fun onDestroy() {
         super.onDestroy()
         ScriptManager.errorListener = null
-//        FlightUtility.setActivityObject(null)
     }
-//
-//    open fun loadTitleView() {
-//        supportFragmentManager.commit {
-//            replace(R.id.main_info_fragment_container, MSDKInfoFragment())
-//        }
-//    }
-//
-//    abstract fun loadPages()
 }
