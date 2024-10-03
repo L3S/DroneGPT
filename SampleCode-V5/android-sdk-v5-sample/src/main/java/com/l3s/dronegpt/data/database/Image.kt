@@ -29,6 +29,7 @@ data class Image(
     val id: Int = 0,
     //foreign key
     val experimentId: Int,
+    // unique image index retrieved from DJI MSDK when image is captured
     val index: Int,
     val size: Long,
     val dateTimeString: String,

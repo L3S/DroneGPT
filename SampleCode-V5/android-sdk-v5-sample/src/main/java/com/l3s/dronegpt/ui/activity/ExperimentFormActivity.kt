@@ -14,6 +14,8 @@ import dji.sampleV5.aircraft.R
 import dji.sampleV5.aircraft.util.ToastUtils
 import kotlinx.android.synthetic.main.dronegpt_experiment_form.create_experiment_button
 
+
+// Form to create an experiment
 class ExperimentFormActivity : AppCompatActivity() {
     private val viewModel: DroneGPTViewModel by viewModels()
 
@@ -21,11 +23,12 @@ class ExperimentFormActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.dronegpt_experiment_form)
 
-        val modelSpinner: Spinner = findViewById(R.id.gpt_model_spinner)
-        val areaTypeSpinner: Spinner = findViewById(R.id.area_type_spinner)
+        // area description text field. Prefilled with default value in ChatGPTUtility class when an area type is selected.
         val areaDescription: EditText = findViewById(R.id.area_description)
         val flightHeight: EditText = findViewById(R.id.flight_height)
 
+        // GPT model dropdown. The complete model name is specified in in ChatGPTUtility class.
+        val modelSpinner: Spinner = findViewById(R.id.gpt_model_spinner)
         ArrayAdapter.createFromResource(
             this,
             R.array.gpt_models_array,
@@ -35,6 +38,8 @@ class ExperimentFormActivity : AppCompatActivity() {
             modelSpinner.adapter = adapter
         }
 
+        // area type dropdown
+        val areaTypeSpinner: Spinner = findViewById(R.id.area_type_spinner)
         ArrayAdapter.createFromResource(
             this,
             R.array.area_types_array,
@@ -43,7 +48,6 @@ class ExperimentFormActivity : AppCompatActivity() {
             adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
             areaTypeSpinner.adapter = adapter
         }
-
         areaTypeSpinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
             override fun onItemSelected(parent: AdapterView<*>, view: View?, position: Int, id: Long) {
                 if (position == 1) { //rectangle selected

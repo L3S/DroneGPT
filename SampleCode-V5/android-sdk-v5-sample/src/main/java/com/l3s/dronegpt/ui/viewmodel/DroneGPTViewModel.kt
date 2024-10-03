@@ -57,22 +57,26 @@ class DroneGPTViewModel(application: Application) : AndroidViewModel(application
         experimentRepository.insertGPT4Experiment(areaDescription, flightHeight)
     }
 
+    // creates the experiment preset defined in ChatGPTUtility object
     fun createExperimentsPreset() = viewModelScope.launch(Dispatchers.IO) {
         experimentRepository.insertExperimentsPreset()
     }
 
+    // saves the excuted Lua code of an experiment
     fun setExperimentExecutedCode(experimentId: Int, executedCode: String) = viewModelScope.launch(
         Dispatchers.IO
     ) {
         experimentRepository.setExecutedCode(experimentId, executedCode)
     }
 
+    // saves the flight logs of an experiment
     fun setExperimentFlightLogs(experimentId: Int, flightLogs: String) = viewModelScope.launch(
         Dispatchers.IO
     ) {
         experimentRepository.setFlightLogs(experimentId, flightLogs)
     }
 
+    // creates an image entity
     fun createImage(experimentId: Int, generatedImageInfo: GeneratedMediaFileInfo, captureLocation: LocationCoordinate3D) =  viewModelScope.launch(
         Dispatchers.IO
     ) {
@@ -88,6 +92,7 @@ class DroneGPTViewModel(application: Application) : AndroidViewModel(application
         )
     }
 
+    // saves all db data in json format on the Android device
     fun exportDataToJsonFile(externalFilesDir: File?) = viewModelScope.launch(Dispatchers.IO) {
         val data = dataRepository.getAllData()
 

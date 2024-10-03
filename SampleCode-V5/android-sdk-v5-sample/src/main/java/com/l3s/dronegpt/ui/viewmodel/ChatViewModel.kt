@@ -34,6 +34,7 @@ class ChatViewModel(application: Application) : AndroidViewModel(application) {
     val gptInsertCheck : LiveData<Boolean>
         get() = _gptInsertCheck
 
+    // sends user messages to ChatGPT. Contstructs json object with all of the required parameters
     fun postResponse(experiment: Experiment, query : String) = viewModelScope.launch {
         //retrieve previous chat messages and add them to the request as context
         val chatContentByExperiment = withContext(Dispatchers.IO) {
@@ -42,7 +43,6 @@ class ChatViewModel(application: Application) : AndroidViewModel(application) {
 
         val jsonObject: JsonObject = JsonObject().apply{
             // params
-//            addProperty("model", "gpt-3.5-turbo")
             addProperty("model", experiment.openaiModel)
             add("messages", JsonArray().apply {
                 // add chat history

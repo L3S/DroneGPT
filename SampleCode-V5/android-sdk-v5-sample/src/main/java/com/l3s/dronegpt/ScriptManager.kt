@@ -7,12 +7,13 @@ import kotlinx.coroutines.withContext
 import org.luaj.vm2.Globals
 import org.luaj.vm2.lib.jse.JsePlatform
 
-
+// This object handles Lua functions definition and script execution
 object ScriptManager {
     private lateinit var globals: Globals
     private val coroutineScope = CoroutineScope(Dispatchers.Default)
     var errorListener: ScriptErrorListener? = null
 
+    // Sets up Lua environment by matching Lua functions with their corresponding FlightUtility functions
     fun setupLuaEnvironment(): Globals {
         globals = JsePlatform.standardGlobals()
         globals.set("end_flight", FlightLib.EndFlight())
@@ -35,6 +36,7 @@ object ScriptManager {
         return globals
     }
 
+    // Executes the Lua script on a separate thread
     fun executeLuaScript(script: String) {
         coroutineScope.launch {
             try {

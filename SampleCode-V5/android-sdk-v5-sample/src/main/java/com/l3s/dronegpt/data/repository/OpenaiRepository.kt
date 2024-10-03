@@ -8,5 +8,6 @@ class OpenaiRepository {
 
     private val chatGPTClient = RetrofitInstance.getInstance().create(OpenaiApi::class.java)
 
+    // sends json object with user message to OpenAI
     suspend fun postResponse(jsonData : JsonObject) = chatGPTClient.postRequest(jsonData)
 }

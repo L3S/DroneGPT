@@ -8,7 +8,7 @@ import androidx.room.OnConflictStrategy
 import androidx.room.PrimaryKey
 import androidx.room.Query
 
-//TODO: add FlightUtility logs?
+
 @Entity(tableName = "experiments")
 data class Experiment(
     val openaiModel: String,
@@ -20,8 +20,6 @@ data class Experiment(
     var id: Int = 0
     var executedCode: String = ""
     var flightLogs: String = ""
-//    var flightRecordPath: String = ""
-//    var flightCompactLogsPath: String = ""
 }
 
 @Dao

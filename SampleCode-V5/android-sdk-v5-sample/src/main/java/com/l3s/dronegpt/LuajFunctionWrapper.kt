@@ -4,9 +4,14 @@ import org.luaj.vm2.LuaValue
 import org.luaj.vm2.lib.ThreeArgFunction
 import org.luaj.vm2.lib.ZeroArgFunction
 
+
+// 'function name' 'input argument count' -> 'output value'
 //takeoff, land, takePhoto 0 -> 0
 //getLat, getLong, getAlt, getCurrentHeading 0 -> 1
 //adjustFlightParameters 4 -> 0
+
+// This class defines all Lua functions and their input/output parameters types using LuaJ
+// http://www.luaj.org/luaj/3.0/README.html#5
 class FlightLib {
 
     class EndFlight : ZeroArgFunction() {

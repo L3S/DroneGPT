@@ -63,6 +63,7 @@ class ChatFragment : Fragment() {
             .build()
         setupObservers()
 
+        // send user message
         binding.sendBtn.setOnClickListener {
             if (this::experiment.isInitialized) {
                 viewModel.postResponse(experiment, binding.EDView.text.toString())
@@ -76,6 +77,7 @@ class ChatFragment : Fragment() {
                 viewModel.getContentData(experiment.id)
             }
         }
+        // builds prompt using buildPrompt function in ChatGPTUtility object
         binding.buildPromptBtn.setOnClickListener {
             if (this::experiment.isInitialized) {
                 binding.EDView.setText(
@@ -106,7 +108,6 @@ class ChatFragment : Fragment() {
         viewModel.gptInsertCheck.observe(viewLifecycleOwner, Observer {
             if (it) {
                 viewModel.getContentData(experiment.id)
-//                binding.loading.visibility = View.INVISIBLE
             }
             branch = 2
         })
@@ -127,6 +128,7 @@ class ChatFragment : Fragment() {
             }
         }
 
+        // sets up longclick of ChatGPT's messages
         contentAdapter.viewCodeClick = object : ChatContentAdapter.ViewCodeClick {
             override fun onLongClick(view: View, position: Int) {
                 if (contentDataList[position].isUserContent) {
@@ -138,6 +140,8 @@ class ChatFragment : Fragment() {
         }
     }
 
+    // triggered when longclicking ChatGPT's response.
+    // shows the parsed Lua code with a dialog for execution
     private fun showExtractedCodeDialog(position: Int) {
         val script = ChatGPTUtility.parseCode(contentDataList[position].content)
         AlertDialog.Builder(requireContext()).apply {

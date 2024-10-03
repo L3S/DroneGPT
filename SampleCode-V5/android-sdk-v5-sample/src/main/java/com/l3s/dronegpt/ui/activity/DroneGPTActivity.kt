@@ -50,8 +50,11 @@ import java.io.File
 import java.io.IOException
 import java.time.LocalDateTime
 
+// DroneGPT dashbourd UI activity
 class DroneGPTActivity : AppCompatActivity(), ScriptErrorListener {
+    // all flight logs are saved here
     private var updates: StringBuilder = StringBuilder().appendLine("updates:")
+
     private val viewModel: DroneGPTViewModel by viewModels()
     private var experimentsList = ArrayList<Experiment>()
     private lateinit var selectedExperiment: Experiment
@@ -66,6 +69,8 @@ class DroneGPTActivity : AppCompatActivity(), ScriptErrorListener {
         FlightUtility.setActivityObject(this)
 
         fragment_chat_container.visibility = View.GONE
+
+        // View switch between flight logs and ChatGPT's chat
         flight_logs_switch.setOnCheckedChangeListener { _, isChecked ->
             if (isChecked) {
                 updates_scroll_view.visibility = View.VISIBLE
@@ -80,11 +85,12 @@ class DroneGPTActivity : AppCompatActivity(), ScriptErrorListener {
         supportFragmentManager.beginTransaction()
             .add(R.id.fragment_chat_container, ChatFragment())
             .commit()
+
         val adapter = ExperimentAdapter { experiment ->
             // This function is triggered when an experiment is clicked
             viewModel.setSelectedExperiment(experiment)
             selectedExperiment = experiment
-            Handler(Looper.getMainLooper()).post {
+            Handler(Looper.getMainLooper()).post { // Update UI with the data of selected experiment
                 experiment_display_name.text = "Experiment ${experiment.id.toString()}"
                 experiment_model.text = "${experiment.openaiModel}"
                 experiment_height.text = "Flight height: ${experiment.flightHeight} meters"
@@ -103,7 +109,7 @@ class DroneGPTActivity : AppCompatActivity(), ScriptErrorListener {
     }
 
 
-
+    // initializes all buttons
     private fun initBtnClickListener() {
         btn_enable_virtual_sticks.setOnClickListener {
             FlightUtility.enableVirtualStick()
@@ -159,6 +165,8 @@ class DroneGPTActivity : AppCompatActivity(), ScriptErrorListener {
         btn_create_all_experiments.setOnClickListener {
             viewModel.createExperimentsPreset()
         }
+
+        // saves logcat to a file on the Android device
         btn_save_logcat.setOnClickListener {
             try {
                 val pid = android.os.Process.myPid()
@@ -167,7 +175,6 @@ class DroneGPTActivity : AppCompatActivity(), ScriptErrorListener {
 
                 // Only capture logs for this PID
                 Runtime.getRuntime().exec(arrayOf("logcat", "-d", "-f", outputFile.absolutePath, "*:V"))
-//                    Runtime.getRuntime().exec("logcat -d *:V | grep ' $pid ' > ${outputFile.absolutePath}")
                 addUpdate("logcat dumped at ${outputFile.absolutePath}")
             } catch (e: IOException) {
                 addUpdate("LogCapture Error saving log file $e")
@@ -185,16 +192,19 @@ class DroneGPTActivity : AppCompatActivity(), ScriptErrorListener {
         }
     }
 
+    // saves db data to a json file on the Android device
     fun exportDataToJsonFile() {
         viewModel.exportDataToJsonFile(getExternalFilesDir(null))
     }
 
+    // Pushes flight logs to UI
     private fun updateText() {
         Handler(Looper.getMainLooper()).post {
             test_flight_updates.text = updates.toString()
         }
     }
 
+    // appends logs to updates string object
     fun addUpdate(update: String) {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             updates.append("> ${LocalDateTime.now()} ")
@@ -212,6 +222,7 @@ class DroneGPTActivity : AppCompatActivity(), ScriptErrorListener {
         updateText()
     }
 
+    // handles db image object creation when a picture is captured
     fun createImage(experiment: Experiment, generatedImageInfo: GeneratedMediaFileInfo?, location3D: LocationCoordinate3D) {
         if (generatedImageInfo != null) {
             viewModel.createImage(experiment.id, generatedImageInfo, location3D)
@@ -219,6 +230,7 @@ class DroneGPTActivity : AppCompatActivity(), ScriptErrorListener {
         }
     }
 
+    // called at when ending flight to save all flight logs (updates) in db under the selected experiment
     fun saveAndResetFlightLogs(experimentId: Int) {
         viewModel.setExperimentFlightLogs(experimentId, updates.toString())
         updates = StringBuilder().appendLine("updates:")

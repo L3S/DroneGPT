@@ -23,6 +23,7 @@ class ExperimentsRepository(application: Application) {
             Experiment(ChatGPTUtility.gpt4Model, areaDescription, flightHeight)
         )
 
+    // creates the experiment preset defined in ChatGPTUtility object
     fun insertExperimentsPreset() {
         for (experiment in ChatGPTUtility.experimentsPreset) {
             database.experimentDao().insertExperiment(
@@ -31,8 +32,10 @@ class ExperimentsRepository(application: Application) {
         }
     }
 
+    // saves the excuted Lua code of an experiment
     fun setExecutedCode(id: Int, code: String) = database.experimentDao().setExecutedCode(id, code)
 
+    // saves the flight logs of an experiment
     fun setFlightLogs(id: Int, flightLogs: String) = database.experimentDao().setFlightLogs(id, flightLogs)
 
 }
