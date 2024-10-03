@@ -31,7 +31,7 @@ import java.io.IOException
 import java.util.Timer
 import java.util.TimerTask
 
-
+// Event sequence for each flight/experiment:
 // set maxFlightHeight and maxFlightDistance -> enable automatic return to home when battery is low ->
 // Set RTH Height = selectedExperiment.flightHeight ->
 // Takeoff -> set home to current location
@@ -39,20 +39,27 @@ import java.util.TimerTask
 // execute ChatGPTs script ->
 // Set RTH Height -> return Home -> land -> save all updates to selectedExperiment.flightLogs
 
-//TODO: set up fail safe functionality to "Pull the plug" and take over manually if something goes wrong -> disable VirtualStick
-//TODO: manual compass, gimbal and IMU calibration
-//TODO: choose max height and distance
+
+/**
+ * This object handles all calls of DJI MSDK functions
+ */
 object FlightUtility {
     private lateinit var activity: DroneGPTActivity
     private val TAG: String = "FlightUtility"
     private var connected: Boolean = false
     private lateinit var takeOffLocation: LocationCoordinate3D
+
+    // When enabled, allows movement commands of ChatGPT's script
     var virtualStickEnabled: Boolean = false
+
     //resets before each experiment
     private var flightParametersTransmitting: Boolean = false
     //resets before each experiment
     private lateinit var experimentInProgress: Experiment
-    /*
+
+
+
+    /* parameter stated by DJI MSDK documentation
         pitch: Double       ANGLE: [-30, 30]        VELOCITY: [-23, 23]
         roll: Double        ANGLE: [-30, 30]        VELOCITY: [-23, 23]
         yaw: Double         ANGLE: [-180, 180]      ANGULAR_VELOCITY: [-100, 100] (GROUND: positive ->, negative <-)
@@ -62,11 +69,13 @@ object FlightUtility {
         YawControlMode.ANGULAR_VELOCITY/ANGLE/UNKNOWN
         FlightCoordinateSystem.GROUND/BODY/UNKNOWN
     */
-//    In the virtual stick advanced mode, obstacle avoidance is supported only when
-//      the vertical control Mode is velocity mode,
-//      the yaw control mode is angular velocity mode,
-//      and the roll pitch control mode is velocity mode.
-    //resets before each experiment
+    // In the virtual stick advanced mode, obstacle avoidance is supported only when
+    // the vertical control Mode is velocity mode,
+    // the yaw control mode is angular velocity mode,
+    // and the roll pitch control mode is velocity mode.
+    // resets before each experiment
+    // Parameter object transmitted to the drone. 
+    // Velocity parameters of this object are adjusted by ChatGPT's script.
     private val virtualStickParam = VirtualStickFlightControlParam(
         0.0,
         0.0,
@@ -78,12 +87,15 @@ object FlightUtility {
         FlightCoordinateSystem.GROUND
     )
 
-//     [20, 1500] in meters
+    // Maximum drone's altitude in meters
+    // DJI MSDK value range is [20, 1500]
     private const val altitudeLimit: Int = 40
-//    maximum distance between aircraft and home point [15, 8000] in meters
+
+    // Maximum distance between aircraft and home point in meters
+    // DJI MSDK value range is [15, 8000]
     private const val defaultDistanceLimit: Int = 320
 
-    //resets before each experiment
+    // Resets before each experiment
     private var distanceLimitReached: Boolean = false
 
     private var homeLocation: Location = Location("home")
@@ -100,6 +112,7 @@ object FlightUtility {
 
     }
 
+    // Resets parameters. Called when selecting an experiment
     private fun resetState() {
         flightParametersTransmitting = false
         virtualStickParam.pitch = 0.0
@@ -112,16 +125,19 @@ object FlightUtility {
         homeLocation.longitude = homeCoordinates.longitude
     }
 
+    // Sets activity object for logging purposes
     fun setActivityObject(activity: DroneGPTActivity) {
         this.activity = activity
     }
 
+    // Sets the selected experiment
     fun setExperiment(experiment: Experiment) {
         experimentInProgress = experiment
         resetState()
         setReturnHomeAltitude()
     }
 
+    // Calls flight preparation functions and sets up listeners for flight logs
     fun initializeFlight(fullInitialization: Boolean = false) {
         // setup flight mode listener
         KeyTools.createKey(FlightControllerKey.KeyFlightMode).listen(activity, false) {currentFlightMode ->
@@ -134,24 +150,24 @@ object FlightUtility {
                 activity.createImage(experimentInProgress, generatedImageInfo, getLocation3D())
             }
 
-            //set max flight altitude
+            // set max flight altitude
             KeyTools.createKey(FlightControllerKey.KeyHeightLimit).set(altitudeLimit, {
                 activity.addUpdate("max flight altitude set to $altitudeLimit")
             }, {
                 activity.addUpdate("could not set max flight altitude to $altitudeLimit $it")
             })
 
-            //enable max distance to home point
+            // enable max distance to home point
             KeyTools.createKey(FlightControllerKey.KeyDistanceLimitEnabled).set(true, {
                 activity.addUpdate("enabled distance limit")
             }, {
                 activity.addUpdate("could enable distance $it")
             })
 
-            //set max distance to home point
+            // set max distance to home point
             setDistanceLimit(defaultDistanceLimit)
 
-            //setup listener for when the drone reaches distance limit
+            // setup listener for when the drone reaches distance limit
             KeyTools.createKey(FlightControllerKey.KeyIsNearDistanceLimit).listen(activity, false) {
                 if (it == true && !distanceLimitReached) {
                     activity.addUpdate("distance limit of $defaultDistanceLimit meters reached.")
@@ -161,14 +177,14 @@ object FlightUtility {
                 }
             }
 
-            //enable automatic return to home when battery is low
+            // enable automatic return to home when battery is low
             KeyTools.createKey(FlightControllerKey.KeyLowBatteryRTHEnabled).set(true, {
                 activity.addUpdate("lowBattery return to home enabled")
             }, {
                 activity.addUpdate("could not enable lowBattery return to home $it")
             })
-            //setup listener for when the battery gets too low
-            //aircraft performs auto return home in that case
+            // setup listener for when the battery gets too low
+            // aircraft performs auto return home in that case
             KeyTools.createKey(FlightControllerKey.KeyLowBatteryRTHInfo)
                 .listen(activity, false) { info ->
                     if (info?.lowBatteryRTHStatus.toString() == "COUNTING_DOWN") { // battery level is getting too low
@@ -182,7 +198,7 @@ object FlightUtility {
                 }
 
 
-            //sets fail safe behavior to auto return home.
+            // sets fail safe behavior to auto return home.
             // When the remote controller loses connection with the aircraft, the aircraft will perform according to the set fail safe behavior.
             KeyTools.createKey(FlightControllerKey.KeyFailsafeAction).set(FailsafeAction.GOHOME, {
                 activity.addUpdate("successfully set auto return home as FailsafeAction")
@@ -190,7 +206,7 @@ object FlightUtility {
                 activity.addUpdate("could not set auto return home as FailsafeAction $it")
             })
 
-            //setup listener for when the aircraft is about to perform fail safe behavior
+            // setup listener for when the aircraft is about to perform fail safe behavior
             KeyTools.createKey(FlightControllerKey.KeyIsFailSafe).listen(activity, false) {
                 if (it == true) {
                     activity.addUpdate("aircraft is out of control. performing fail safe behavior")
@@ -201,11 +217,12 @@ object FlightUtility {
     }
 
     /*
-        【Prerequisite】
+        【DJI MSDK Prerequisite of this function】
         The connection between the app and RC is normal.
         The RC is under normal mode.
         The aircraft is not flying with an automated task such as waypointMission or RTH function.
      */
+    // Enables movement commands of ChatGPT's script
     fun enableVirtualStick() {
         VirtualStickManager.getInstance().init()
         VirtualStickManager.getInstance()
@@ -221,6 +238,7 @@ object FlightUtility {
         VirtualStickManager.getInstance().setVirtualStickAdvancedModeEnabled(true)
     }
 
+    // Used to disables all movement commands of ChatGPT's scripts
     fun disableVirtualStick() {
         VirtualStickManager.getInstance().disableVirtualStick(object : CommonCallbacks.CompletionCallback {
             override fun onSuccess() {
@@ -234,6 +252,7 @@ object FlightUtility {
         })
     }
 
+    // Sets altitude of the automated return home flight
     private fun setReturnHomeAltitude() {
         if(this::experimentInProgress.isInitialized) {
             //set return home altitude
@@ -246,6 +265,7 @@ object FlightUtility {
         }
     }
 
+    // Sets distance limit from home, which is usually the takeoff location
     fun setDistanceLimit(distanceLimit: Int) {
         KeyTools.createKey(FlightControllerKey.KeyDistanceLimit).set(distanceLimit, {
             activity.addUpdate("distance limit set to $distanceLimit")
@@ -254,7 +274,7 @@ object FlightUtility {
         })
     }
 
-
+    // Retrieves the full coordinates of the drone
     private fun getLocation3D(): LocationCoordinate3D {
         return KeyManager.getInstance()
             .getValue(
@@ -271,7 +291,8 @@ object FlightUtility {
         return getLocation3D().longitude
     }
 
-    //called by ChatGPT
+    // Called by ChatGPT
+    // Retrieves the current X coordinate (East-West) of the drone in meters with takeoff location as 0.
     fun getCurrentXCoordinate(): Double {
         val currentXAxisLocation = Location("xAxisLocation")
         currentXAxisLocation.latitude = homeLocation.latitude
@@ -284,7 +305,8 @@ object FlightUtility {
         }
     }
 
-    //called by ChatGPT
+    // Called by ChatGPT
+    // Retrieves the current Y coordinate (North-South) of the drone in meters with takeoff location as 0.
     fun getCurrentYCoordinate(): Double {
         val currentYAxisLocation = Location("yAxisLocation")
         currentYAxisLocation.longitude = homeLocation.longitude
@@ -297,7 +319,8 @@ object FlightUtility {
         }
     }
 
-    //called by ChatGPT
+    // Called by ChatGPT
+    // Retrieves the drone's distance from takeoff location in meters
     fun getDistanceToHome(): Double {
         val threeDLocation = getLocation3D()
         val currentLocation = Location("currentLocation")
@@ -306,7 +329,9 @@ object FlightUtility {
         return homeLocation.distanceTo(currentLocation).toDouble()
     }
 
-    //called by ChatGPT
+    // Called by ChatGPT
+    // Retrieves the current drone's heading. The north is 0 degrees, the east is 90 degrees. 
+    // The returned value range is [-180,180]. Returns 200 when compass heading value couldn't be retrieved
     fun getCompassHeading(): Double {
         val heading = FlightControllerKey.KeyCompassHeading.create().get(200.0)
         if (heading == 200.0) {
@@ -338,6 +363,7 @@ object FlightUtility {
         })
     }
 
+    // Increases the drone's altitude to the flight height of the selected experiment
     fun elevateToExperimentHeight() {
         if (!virtualStickEnabled) {
             enableVirtualStick()
@@ -366,6 +392,7 @@ object FlightUtility {
         })
     }
 
+    // Initiates automated return home flight.
     fun returnHome() {
         if (virtualStickEnabled) {
             disableVirtualStick()
@@ -377,13 +404,14 @@ object FlightUtility {
         })
     }
 
+    // Saves experiment data
     private fun endFlight() {
         activity.saveAndResetFlightLogs(experimentInProgress.id)
         activity.exportDataToJsonFile()
     }
 
-    //called by ChatGPT
-    //VirtualStickEnabled acts as the switch for this function to reduce unwanted images
+    // Called by ChatGPT
+    // Images are taken only when VirtualStickEnabled is true to reduce unwanted images
     fun takePhoto() {
         if (virtualStickEnabled) {
             capture(object : CommonCallbacks.CompletionCallback {
@@ -417,13 +445,16 @@ object FlightUtility {
             }
     }
 
-/*
+/*  DJI MSDK min/max parameters:
     pitch: Double       ANGLE: [-30, 30]        VELOCITY: [-23, 23]
     roll: Double        ANGLE: [-30, 30]        VELOCITY: [-23, 23]
     yaw: Double         ANGLE: [-180, 180]      ANGULAR_VELOCITY: [-100, 100]
     vThrottle: Double   HEIGHT: [0, 5000]       VELOCITY: [-6, 6]
  */
-    //called by ChatGPT
+
+    // Called by ChatGPT
+    // Adjusts the velocity parameters being transmitted to the drone
+    // The allowed velocity range is set in ChatGPTUtility object.
     fun adjustFlightParameters(pitch: Double, roll: Double, yaw: Double) {
         // check if pitch value is within the allowed range
         if (pitch < ChatGPTUtility.minPitchRollValue.toDouble()) { // pitch value is smaller than minValue allowed -> set to minValue and addUpdate
@@ -469,6 +500,8 @@ object FlightUtility {
             activity.addUpdate("parameters adjusted to pitch: ${virtualStickParam.pitch}, roll: ${virtualStickParam.roll}, yaw: ${virtualStickParam.yaw}, vThrottle: ${virtualStickParam.verticalThrottle}")
         }
     }
+
+    // Transmits the flight parameters to the drone at the 5Hz recommended rate by DJI MSDK documentation
     private fun transmitFlightParameters() {
         Timer().scheduleAtFixedRate( object : TimerTask() {
             override fun run() {
@@ -485,7 +518,8 @@ object FlightUtility {
         }, 0, 200)
     }
 
-    //called by ChatGPT
+    // Called by ChatGPT
+    // Calls automated return home function
     fun returnHomeAndEndFlight() {
         returnHome()
         endFlight()

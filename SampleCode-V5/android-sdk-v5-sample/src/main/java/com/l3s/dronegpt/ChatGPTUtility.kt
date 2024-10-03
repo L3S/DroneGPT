@@ -2,26 +2,34 @@ package com.l3s.dronegpt
 
 import com.l3s.dronegpt.data.database.Experiment
 
+/**
+ *  This object contains the prompt and all of its parameters.
+ */
 object ChatGPTUtility {
+    // Model strings are sent in the API requests
     const val gpt3Model: String = "gpt-3.5-turbo"
     const val gpt4Model: String = "gpt-4o"
 
 
+    // Area descriptions are prefilled in the form to create an experiment
     val defaultCircleAreaDescription: String = "circle with radius of 100 meters and center at the following coordinates (x=0,y=0)"
     val defaultRectangleAreaDescription: String = "rectangle with vertices at the following coordinates (x=, y=), (x=, y=), (x=, y=), and (x=, y=)"
     var areaDescription: String = ""
     var flightHeight: Int = 0
 
-
+    // Hardware information
     var gimbalAngle: Int = -90
     const val cameraFOV = 82.1
 
     const val flightDuration = 8
+
+    // These following velocity range is sent in the prompt, and also checked in the 'adjustFlightParameters' method in FlightUtility object
     const val minPitchRollValue = -6
     const val maxPitchRollValue = 6
     const val minYawValue = -100
     const val maxYawValue = 100
 
+    // Preset that can be created with the button "Create Experiment Preset"
     val experimentsPreset = arrayOf(
         // Exp1, 3.5, circle, centered
         Experiment(gpt3Model, "circle with radius of 130 meters and center at the following coordinates (x=0,y=0)", 20),
@@ -42,7 +50,6 @@ object ChatGPTUtility {
         Experiment(gpt4Model, "rectangle with vertices at the following coordinates (x=140, y=160), (x=140, y=-160), (x=-20, y=-160), and (x=-20, y=160)", 20)
 
     )
-
 
 
     val prompt: String
@@ -76,12 +83,14 @@ object ChatGPTUtility {
         Develop the Lua script to ensure the drone remains within the boundary throughout the flight. Select an efficient and effective pattern for surveying the designated area. Implement error handling for failed compass heading retrievals by attempting a retry before any critical operations. The script should respect the $flightDuration minute flight duration limit, utilizing the pause_script_execution function to control the timing of flight adjustments.
     """.trimIndent()
 
+    // Constructs the prompt given flight height and area description
     fun buildPrompt(flightHeight: Int, areaDescription: String): String {
         this.flightHeight = flightHeight
         this.areaDescription = areaDescription
         return prompt
     }
 
+    // Used to parse code from ChatGPT response
     fun parseCode(chatGptResponse: String): String {
         val regex = "```([\\s\\S]+?)```".toRegex()
         if (!regex.containsMatchIn(chatGptResponse))
