@@ -1,111 +1,70 @@
-# DJI Mobile SDK for Android V5 Latest Version 5.8.0
 
-[中文版](README_CN.md)
+# DroneGPT
 
-## What is DJI Mobile SDK V5?
+DroneGPT is an Android application that allows ChatGPT to control DJI Aircrafts. 
 
-DJI Mobile SDK V5 has a series of APIs to control the software and hardware interfaces of an aircraft. We provide an open source production sample and a tutorial for developers to develop a more competitive drone solution on mobile device. This improves the experience and efficiency of MSDK App development.
-
-Supported Product:
-* [DJI Mini3 Pro](https://www.dji.com/cn/mini-3-pro?site=brandsite&from=landing_page)
-* [DJI Mini3](https://www.dji.com/cn/mini-3?site=brandsite&from=landing_page)
-* [Mavic 3 Enterprise Series](https://www.dji.com/cn/mavic-3-enterprise)
-* [M30 Series](https://www.dji.com/matrice-30?site=brandsite&from=nav)
-* [M300 RTK](https://www.dji.com/matrice-300?site=brandsite&from=nav)
-* [Matrice 350 RTK](https://enterprise.dji.com/cn/matrice-350-rtk)
+The app sends ChatGPT a prompt that contains the available API library, which is used by ChatGPT to develop the flight algorithm in [Lua programming language](https://www.lua.org/). The high-level Lua API functions execute their respective [DJI MSDK v5](https://github.com/dji-sdk/Mobile-SDK-Android-V5) API functions at run-time.
 
 
-
-## Project Directory Introduction
-
-```
-├── Docs
-│   ├── API-Diff
-│   │   ├── 5.0.0_5.1.0_android_diff.html
-│   │   ├── 5.0.0_beta2_5.0.0_beta3_android_diff.html
-│   │   ├── 5.0.0_beta3_5.0.0_android_diff.html
-│   │   ├── 5.1.0_5.2.0_android_diff.html
-│   │   ├── 5.2.0_5.3.0_android_diff.html
-│   │   ├── 5.4.0_5.5.0_android_diff.html
-│   │   ├── 5.5.0_5.6.0_android_diff.html
-│   │   ├── 5.6.0_5.7.0_android_diff.html
-│   │   └── 5.7.0_5.8.0_android_diff.html
-│   └── Android_API
-│       ├── cn
-│       └── en
-├── LICENSE.txt
-├── README.md
-├── README_CN.md
-└── SampleCode-V5
-    ├── android-sdk-v5-as
-    ├── android-sdk-v5-sample
-    └── android-sdk-v5-uxsdk
-```
-
-### API Difference
-- [5.7.0_5.8.0_android_diff.html](https://dji-sdk.github.io/Mobile-SDK-Android-V5/Docs/API-Diff/5.7.0_5.8.0_android_diff.html)
-- [5.6.0_5.7.0_android_diff.html](https://dji-sdk.github.io/Mobile-SDK-Android-V5/Docs/API-Diff/5.6.0_5.7.0_android_diff.html)
-- [5.5.0_5.6.0_android_diff.html](https://dji-sdk.github.io/Mobile-SDK-Android-V5/Docs/API-Diff/5.5.0_5.6.0_android_diff.html)
-- [5.4.0_5.5.0_android_diff.html](https://dji-sdk.github.io/Mobile-SDK-Android-V5/Docs/API-Diff/5.4.0_5.5.0_android_diff.html)
-- [5.2.0_5.3.0_android_diff.html](https://dji-sdk.github.io/Mobile-SDK-Android-V5/Docs/API-Diff/5.2.0_5.3.0_android_diff.html)
-- [5.1.0_5.2.0_android_diff.html](https://dji-sdk.github.io/Mobile-SDK-Android-V5/Docs/API-Diff/5.1.0_5.2.0_android_diff.html)
-- [5.0.0_5.1.0_android_diff.html](https://dji-sdk.github.io/Mobile-SDK-Android-V5/Docs/API-Diff/5.0.0_5.1.0_android_diff.html)
-- [5.0.0_beta3_5.0.0_android_diff](https://dji-sdk.github.io/Mobile-SDK-Android-V5/Docs/API-Diff/5.0.0_beta3_5.0.0_android_diff.html)
-- [5.0.0_beta2_5.0.0_beta3_android_diff](https://dji-sdk.github.io/Mobile-SDK-Android-V5/Docs/API-Diff/5.0.0_beta2_5.0.0_beta3_android_diff.html)
-
-### Software License
-
-The DJI Android SDK is dynamically linked with unmodified libraries of <a href=http://ffmpeg.org>FFmpeg</a> licensed under the <a href=https://www.gnu.org/licenses/lgpl-2.1.html.en>LGPLv2.1</a>. The source code of these FFmpeg libraries, the compilation instructions, and the LGPL v2.1 license are provided in [Github](https://github.com/dji-sdk/FFmpeg). The DJI Sample Code V5 in this repo is offered under MIT License.
+[![MIT License](https://img.shields.io/badge/License-MIT-green.svg)](https://choosealicense.com/licenses/mit/)
 
 
-### Sample Explanation
+## Installation
 
-Sample can be divided into three parts:
+### Prerequisites
 
-- Scenographic Example: Provides scenographic sample support of aircraft.
-- Sample Module: Offer an Airplane Sample App.
+- Android Studio: `Android Studio Giraffe 2022.3.1`.
+- A DJI drone compatible with [DJI MSDK V5](https://developer.dji.com/mobile-sdk/) along with its remote controller. 
+- Anroid device: DJI MSDK officially supports devices running Android 6.0 or higher. This project was tested on Samsung Galaxy A21s running Android 12.
 
-For detailed configuration, please refer to [settings.gradle](SampleCode-V5/android-sdk-v5-as/settings.gradle).
+- optional: [Android bridge app](https://github.com/dji-sdk/Android-Bridge-App).
 
-Scenographic Example：
+> [!NOTE]
+> This project was tested using DJI Mini 3 with DJI RC N1. The remote controller with the built-in screen is not compatible with DJI MSDK!
 
-- uxsdk: Scenographic Example. Currently only aircraft are supported.
+### Environment Variables
 
-Sample module:
+To run this project, you will need to add the following environment variables in [the gradle.properties file](https://github.com/L3S/DroneGPT/blob/dev-sdk-main/SampleCode-V5/android-sdk-v5-as/gradle.properties).
 
-- sample：Compile aircraft sample App, which depends on uxsdk.
+- `DJI_MSDK_API_KEY`: can be obtained for free by creating a [DJI developer account and applying for a key](https://developer.dji.com/user/apps/#all). **Please note** that you have to enter "com.dji.sampleV5.aircraft" as "Package name" when creating the key.
 
-## Integration
-
-For further detail on how to integrate the DJI Android SDK into your Android Studio project, please check the tutorial:
-- [Notice of Run MSDK](https://developer.dji.com/doc/mobile-sdk-tutorial/en/quick-start/user-project-caution.html)
-
-## AAR Explanation
-
-> **Notice:** sdkVersion = 5.8.0
-
-| SDK package | Explanation | How to use|
-| :---------------: | :-----------------:  | :---------------: |
-|     dji-sdk-v5-aircraft      | Aircraft main package, which provides support for MSDK to control the aircraft. | implementation 'com.dji:dji-sdk-v5-aircraft:{sdkVersion}' |
-| dji-sdk-v5-aircraft-provided | Aircraft compilation package, which provides interfaces related to the aircraft package. | compileOnly 'com.dji:dji-sdk-v5-aircraft-provided:{sdkVersion}' |
-| dji-sdk-v5-networkImp | Network library package, which provides network connection ability for MSDK. Without this dependency, all network functions of MSDK will not work, but the interfaces of hardware control can be used normally. | runtimeOnly 'com.dji:dji-sdk-v5-networkImp:{sdkVersion}' |
-
-- If only the aircraft product is in need to support, please use:
-
-  ```groovy
-  implementation 'com.dji:dji-sdk-v5-aircraft:{sdkVersion}'
-  compileOnly 'com.dji:dji-sdk-v5-aircraft-provided:{sdkVersion}'
-  ```
-  
-- If the MSDK have to use network(required by default), please use:
-  ```groovy
-  runtimeOnly 'com.dji:dji-sdk-v5-networkImp:{sdkVersion}'
-  ```
+- `OPENAI_API_KEY`: can be created in OpenAI's [API Keys dashboard](https://platform.openai.com/api-keys).
 
 
 
-## Support
+### Build
+1. From Android Studio sync gradle project.
+2. Pair your Android device over wifi.
+3. Click "Run" on Android Studio
+4. Connect the Android device with the DJI Remote Controller
+    
 
-You can get support from DJI with the following method:
 
-- Post questions in DJI Developer Forums: [**DEVELOPER SUPPORT**](https://djisdksupport.zendesk.com/hc/en-us/community/topics)
+> [!IMPORTANT]  
+> After building the project on your Android device, test the DJI registration by making sure it says "Registered" under "Registeration Status" on the app's homescreen.
+
+
+## Usage
+
+Since this app was developed for a research paper, flights are conducted by creating surveillance "experiments" and defining the allowed flight area for ChatGPT.
+To mitigate safety risks, ChatGPT's control of the drone is limited to horizontal movements. Therefore, takeoff, landing and vertical throlttling commands are excluded from ChatGPT's API.
+
+> [!TIP]
+> Before proceeding with the steps below for the first time, test the drone's connectivity by conducting a manual flight in the "Default Layout" from the app's home screen.
+
+  1. Create experiment: choose the OpenAI model, description of the allowed area and the height of the flight.
+  2. Select the created experiment from the scrollable left side bar
+  3. Switch to ChatGPT's interface: the "Show flight logs" radio button is used to toggle between the display of flight logs and ChatGPT's interface
+  4. Generate and send prompt: select the small rounded button left to the input field. The input field can be optionally edited before sending the final prompt.
+  5. After iterating on ChatGPT's implementations, the experiment can be initialized by clicking the button to activate safety functions (Init All) to take off and subsequently increase the drone’s altitude based on the saved height of the selected experiment (Elevate to experiment height)
+  6. After the drone hovers at the desired altitude, execute ChatGPT's code by long-clicking the response, reviewing the parsed code, and selecting "Execute"
+
+
+
+
+## Acknowledgements
+
+ - [DJI MSDK and Sample app](https://github.com/dji-sdk/Mobile-SDK-Android-V5)
+ - [ChatGPT Chat UI](https://github.com/nohjunh/ChatGPTAndroid)
+
+
